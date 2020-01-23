@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { userActions } from '../../redux/actions';
 import Welcome from '../Welcome';
 
 const Container = styled.div`
@@ -12,9 +14,11 @@ const Container = styled.div`
    flex-direction: column;
 `;
 
-const Home = () => {
+const Home = (props) => {
+  const { getAllUser } = props;
   useEffect(() => {
-  }, []);
+    getAllUser();
+  }, [getAllUser]);
   
   return (
   <Container>
@@ -23,4 +27,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default connect(null, userActions)(Home);
