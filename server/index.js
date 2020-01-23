@@ -12,6 +12,7 @@ const port = 5000;
 
 const url = process.env.MONGODB_URI || "mongodb://localhost/admin"
 try {
+    mongoose.set('useCreateIndex', true);
     mongoose.connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
