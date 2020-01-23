@@ -1,6 +1,5 @@
-let router = require('express').Router();
-var userController = require('../controllers/userController');
-router.route('/')
-    .post(userController.auth);
+var userController = require('../controllers/user');
 
-module.exports = router;
+module.exports = (router) => {
+    router.route('/').post(userController.auth);
+}

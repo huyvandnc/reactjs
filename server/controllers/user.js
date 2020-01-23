@@ -1,14 +1,14 @@
 const Bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const { User, Validate } = require('../models/userModel');
+const { User, Validate } = require('../models/user');
 
-exports.index = async(req, res) => {
+exports.getAll = async(req, res) => {
     let users = await User.find().select('-password').limit(0);
     return res.status(200).json({ success: true, users });
 };
 
-exports.new = async(req, res) => {
+exports.addUser = async(req, res) => {
     let {email, password, name, phone} = req.body;
 
     const { error } = Validate(req.body);
@@ -64,7 +64,7 @@ exports.token = async(req, res) => {
     return res.status(400).json({ success: false, message: "The user does not exist" });
 };
 
-exports.view = async(req, res) => {
+exports.getUser = async(req, res) => {
     let user = await User.findById(req.params.user_id).select('-password');
     if (user) {
         return res.status(200).json({
@@ -75,7 +75,7 @@ exports.view = async(req, res) => {
     return res.status(400).json({ success: false, message: "The user does not exist" });
 };
 
-exports.update = (req, res) => {
+exports.updateUser = (req, res) => {
     User.findById(req.params.user_id, (err, user) => {
         if (err) res.send(err);
         user.email = req.body.email || req.query.email;
@@ -91,7 +91,7 @@ exports.update = (req, res) => {
     });
 };
 
-exports.delete = (req, res) => {
+exports.deleteUser = (req, res) => {
     User.remove({
         _id: req.params.user_id
     }, (err, user) => {

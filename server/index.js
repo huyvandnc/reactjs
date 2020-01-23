@@ -1,27 +1,38 @@
 require('dotenv').config();
 const express = require("express");
+const cors = require('cors');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
-let middleware = require('./middleware');
+const middleware = require('./middleware');
+const routes = require('./routes');
 const app = express();
+const router = express.Router();
 const port = 5000;
 
+const url = process.env.MONGODB_URI || "mongodb://localhost/admin"
+try {
+    mongoose.connect(url, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+    console.log("Db connected successfully");
+} catch (error) {
+    console.log("Error connecting db");
+}
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
 
-mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true});
-var db = mongoose.connection;
-if(!db)
-    console.log("Error connecting db")
-else
-    console.log("Db connected successfully")
+routes(router);
+app.use('/api', router);
 
-let users = require("./routes/users");
-let token = require("./routes/token");
-let auth = require("./routes/auth");
+//app.use('/api/users', middleware.checkToken, users);
+//app.use('/api/token', middleware.checkToken, token);
+//app.use('/api/auth', auth);
 
-app.use('/api/users', middleware.checkToken, users);
-app.use('/api/token', middleware.checkToken, token);
-app.use('/api/auth', auth);
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => {
+    console.log(`Server started at port: ${port}`);
+});

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import styled from 'styled-components';
-import Welcome from './components/Welcome';
+import Home from './components/home';
+import Signin from './components/auth';
+import {history} from './helpers';
 import './App.css';
-
-document.addEventListener('touchstart', function() {}, true);
 
 const Container = styled.div`
    position: fixed;
@@ -15,20 +16,16 @@ const Container = styled.div`
    flex-direction: column;
 `;
 
-const callApi = async () => {
-  const response = await fetch('/api/users');
-  const body = await response.json();
-  return body;
-};
-
 const App = () => {
-  useEffect(() => {
-    callApi();
-  }, []);
-  
   return (
   <Container>
-    <Welcome/>
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/signin" component={Signin} />
+        <Redirect from="*" to="/" />
+      </Switch>
+    </Router>
   </Container>
   );
 }
