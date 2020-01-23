@@ -3,7 +3,7 @@ const defaultState = {
     modalMode: false
 };
   
-export default (state = defaultState, action) => {
+const common = (state = defaultState, action) => {
     switch (action.type) {
       case 'TOGGLE_MODAL':
         console.log(`toggling modal: ${action.modalMode}`)
@@ -15,3 +15,5 @@ export default (state = defaultState, action) => {
         return state;
     }
 };
+
+export default common;

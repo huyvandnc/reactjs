@@ -3,7 +3,7 @@ const initialState = {
     user: {}
 }
 
-export default (state=initialState, action) => {
+const user = (state=initialState, action) => {
     switch (action.type) {
         case 'LOAD_USERS' :
         return {
@@ -19,3 +19,5 @@ export default (state=initialState, action) => {
             return state
     }
 }
+
+export default user;
