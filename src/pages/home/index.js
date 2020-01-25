@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { userActions } from '../../redux/actions';
-import Welcome from '../Welcome';
+import Welcome from '../../components/Welcome';
+import Vheader from '../../components/Vheader';
 
 const Container = styled.div`
    position: fixed;
@@ -15,6 +16,7 @@ const Container = styled.div`
 `;
 
 const Home = (props) => {
+  //console.log('props', props);
   const { getAllUser } = props;
   useEffect(() => {
     getAllUser();
@@ -22,9 +24,20 @@ const Home = (props) => {
   
   return (
   <Container>
-    <Welcome/>
+    <Vheader></Vheader>
+    <Welcome></Welcome>
   </Container>
   );
 }
 
-export default connect(null, userActions)(Home);
+const mapStateToProps = (state) => {
+  //console.log('state', state);
+  const { auth } = state;
+  return { auth };
+}
+
+const actionCreators = {
+  getAllUser: userActions.getAllUser,
+}
+
+export default connect(mapStateToProps, actionCreators)(Home);
