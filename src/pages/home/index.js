@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { userActions } from '../../redux/actions';
 import Welcome from '../../components/Welcome';
-import Vheader from '../../components/Vheader';
+import Header from '../../components/header';
 
 const Container = styled.div`
    position: fixed;
@@ -24,7 +24,7 @@ const Home = (props) => {
   
   return (
   <Container>
-    <Vheader></Vheader>
+    <Header></Header>
     <Welcome></Welcome>
   </Container>
   );
