@@ -23,15 +23,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = (props) => {
-    const { auth } = props;
+    console.log('Header props', props);
+    const { auth, history } = props;
     const { token, loggingIn, currentUsers } = auth;
     const classes = useStyles();
     return (
         <AppBar position="static" color="default" style={{ boxShadow: 'none'}}>
             <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-            </IconButton>
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>{ history.push('/'); }}>
+                    <MenuIcon />
+                </IconButton>
             <Typography variant="h6" className={classes.title}>
                 News
             </Typography>
@@ -40,10 +41,10 @@ const Header = (props) => {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={()=>{}}
+                onClick={()=>{ history.push('/signin'); }}
                 color="inherit"
                 >
-                <AccountCircle />
+                    <AccountCircle />
                 </IconButton>
             </div>
             </Toolbar>
