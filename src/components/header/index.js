@@ -3,8 +3,7 @@ import {
     AppBar,
     Toolbar,
     IconButton,
-    Typography,
-    Button
+    Typography
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { AccountCircle, ExitToApp } from '@material-ui/icons';
