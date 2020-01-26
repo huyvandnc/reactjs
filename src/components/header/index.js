@@ -7,7 +7,7 @@ import {
     Button
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { AccountCircle } from '@material-ui/icons';
+import { AccountCircle, ExitToApp } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -37,8 +37,18 @@ const Header = (props) => {
                 News
             </Typography>
             <div>
+                {
+                   loggingIn ?
                 <IconButton
-                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={()=>{ history.push('/'); }}
+                color="inherit"
+                >
+                    <ExitToApp />
+                </IconButton>
+                :
+                <IconButton
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={()=>{ history.push('/signin'); }}
@@ -46,6 +56,7 @@ const Header = (props) => {
                 >
                     <AccountCircle />
                 </IconButton>
+                }
             </div>
             </Toolbar>
         </AppBar>
