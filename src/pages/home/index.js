@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { userActions } from '../../redux/actions';
-import Welcome from '../../components/Welcome';
+import styled from 'styled-components';
 import Header from '../../components/header';
 
 const Container = styled.div`
@@ -16,7 +15,6 @@ const Container = styled.div`
 `;
 
 const Home = (props) => {
-  //console.log('props', props);
   const { getAllUser } = props;
   useEffect(() => {
     getAllUser();
@@ -24,14 +22,12 @@ const Home = (props) => {
   
   return (
   <Container>
-    <Header></Header>
-    <Welcome></Welcome>
+    <Header {...props}/>
   </Container>
   );
 }
 
 const mapStateToProps = (state) => {
-  //console.log('state', state);
   const { auth } = state;
   return { auth };
 }
