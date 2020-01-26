@@ -1,47 +1,53 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from "react-router-dom";
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    Button
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import { AccountCircle } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
 
-const Nav = styled.nav`
-    position: fixed;
-    padding: 0px 15px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    z-index: 1003;
-    background-color: #fafbfc;
-    border-bottom: 1px solid #e1e4e8;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-`;
-
-const StyledLink = styled(Link)`
-    display: inline-block;
-    min-width: 30px;
-    min-height: 30px;
-    padding: 0px 10px;
-    color: #425a70;
-    text-decoration: none;
-    line-height: 30px;
-    letter-spacing: 0.4px;
-    border-radius: 3px;
-    &:hover {
-        background-color: rgba(67, 90, 111, 0.06);
-    }
-`;
+const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+}));
 
 const Header = (props) => {
     const { auth } = props;
     const { token, loggingIn, currentUsers } = auth;
+    const classes = useStyles();
     return (
-        <header>
-            <Nav>
-                { loggingIn ? <StyledLink to="/">loggingIn!</StyledLink> : <StyledLink to="/signin">Đăng nhập!</StyledLink> }
-            </Nav>
-        </header>
+        <AppBar position="static" color="default" style={{ boxShadow: 'none'}}>
+            <Toolbar>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+                News
+            </Typography>
+            <div>
+                <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={()=>{}}
+                color="inherit"
+                >
+                <AccountCircle />
+                </IconButton>
+            </div>
+            </Toolbar>
+        </AppBar>
     );
 }
 
