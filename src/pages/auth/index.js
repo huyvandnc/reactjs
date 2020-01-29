@@ -7,7 +7,8 @@ import {
     Button,
     Grid,
     Avatar,
-    CssBaseline
+    CssBaseline,
+    Box
 } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,10 +21,8 @@ const Copyright = () => {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
+        <Link color="inherit" href="https://caykiem.com">Cày Kiếm Cơm</Link>{' '}
+        2015-{new Date().getFullYear()}
         {'.'}
       </Typography>
     );
@@ -91,6 +90,9 @@ const Login = (props) => {
                     </Grid>
                 </form>
             </div>
+            <Box mt={8}>
+                <Copyright />
+            </Box>
         </Container>
     );
 }

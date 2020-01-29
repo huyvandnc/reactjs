@@ -2,8 +2,7 @@ import React from 'react';
 import {
     AppBar,
     Toolbar,
-    IconButton,
-    Typography
+    IconButton
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { AccountCircle, ExitToApp } from '@material-ui/icons';
