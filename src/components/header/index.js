@@ -15,10 +15,7 @@ const useStyles = makeStyles(theme => ({
     },
     menuButton: {
       marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
+    }
 }));
 
 const Header = (props) => {
@@ -28,35 +25,22 @@ const Header = (props) => {
     const classes = useStyles();
     return (
         <AppBar position="static" color="default" style={{ boxShadow: 'none'}}>
-            <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>{ history.push('/'); }}>
+            <Toolbar variant="dense">
+                <IconButton size="small" edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>{ history.push('/'); }}>
                     <MenuIcon />
                 </IconButton>
-            <Typography variant="h6" className={classes.title}>
-                News
-            </Typography>
-            <div>
-                {
-                   loggingIn ?
-                <IconButton
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={()=>{ history.push('/'); }}
-                color="inherit"
-                >
-                    <ExitToApp />
-                </IconButton>
-                :
-                <IconButton
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={()=>{ history.push('/signin'); }}
-                color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                }
-            </div>
+                <div>
+                    {
+                    loggingIn ?
+                    <IconButton size="small" aria-controls="menu-appbar" aria-haspopup="true" onClick={()=>{ history.push('/'); }} color="inherit">
+                        <ExitToApp />
+                    </IconButton>
+                    :
+                    <IconButton size="small" aria-controls="menu-appbar" aria-haspopup="true" onClick={()=>{ history.push('/signin'); }} color="inherit">
+                        <AccountCircle />
+                    </IconButton>
+                    }
+                </div>
             </Toolbar>
         </AppBar>
     );
