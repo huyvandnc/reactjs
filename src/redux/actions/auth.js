@@ -2,20 +2,39 @@ import { authConstants } from '../constants';
 export const authActions = {
     signIn: (body) => {
         return (dispatch) => {
-            dispatch({ type: authConstants.LOGIN_REQUEST, body });
-            fetch('/api/auth', { method: 'post', body: body })
+            dispatch({ type: authConstants.SIGNIN_REQUEST });
+            fetch('/api/signin', { method: 'post', body: body })
             .then((res) => res.json())
             .then((json) => {
-                if(json.status)
+                if(json.success)
                 {
-                    dispatch({ type: authConstants.LOGIN_SUCCESS, json });
+                    dispatch({ type: authConstants.SIGNIN_SUCCESS, json });
                 }
                 else{
-                    dispatch({ type: authConstants.LOGIN_FAILURE, json });
+                    dispatch({ type: authConstants.SIGNIN_FAILURE, json });
                 }
             })
             .catch((error) => {
-                dispatch({ type: authConstants.LOGIN_FAILURE, error });
+                dispatch({ type: authConstants.SIGNIN_FAILURE, error });
+            });
+        }
+    },
+    signUp: (body) => {
+        return (dispatch) => {
+            dispatch({ type: authConstants.SIGNUP_REQUEST });
+            fetch('/api/signup', { method: 'post', body: body })
+            .then((res) => res.json())
+            .then((json) => {
+                if(json.success)
+                {
+                    dispatch({ type: authConstants.SIGNUP_SUCCESS, json });
+                }
+                else{
+                    dispatch({ type: authConstants.SIGNUP_FAILURE, json });
+                }
+            })
+            .catch((error) => {
+                dispatch({ type: authConstants.SIGNUP_FAILURE, error });
             });
         }
     }

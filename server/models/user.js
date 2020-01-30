@@ -1,7 +1,9 @@
 const Joi = require('@hapi/joi');
+const config = require('../config');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
-const User = mongoose.model('users', new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -21,7 +23,7 @@ const User = mongoose.model('users', new mongoose.Schema({
         minlength: 1,
         maxlength: 32
     },
-    phone: {
+    mobile: {
         type: String,
         required: true,
         minlength: 10,
@@ -37,17 +39,56 @@ const User = mongoose.model('users', new mongoose.Schema({
     }
 },{
     versionKey: false
-}));
+});
 
-const validateUser = (user) => {
+userSchema.methods.generateAuthToken = () => {
+    const token = jwt.sign({_id: this._id}, config.secret);
+    return token;
+}
+const User = mongoose.model('Users', userSchema);
+
+const validate = (user) => {
     const schema = Joi.object({
-        email: Joi.string().min(6).max(255).required().email(),
-        password: Joi.string().min(6).max(1024).required(),
-        name: Joi.string().min(1).max(32).required(),
-        phone: Joi.string().min(10).max(11).required()
+        name: Joi.string().required(),
+        email: Joi.string().required().email(),
+        mobile: Joi.string().required(),
+        password: Joi.string().required()
     });
     return schema.validate(user);
 }
 
-module.exports.User = User;
-module.exports.Validate = validateUser;
+const validateName = (name) => {
+    const schema = {
+        name: Joi.string().required()
+    }
+    return schema.validate(name);
+}
+
+const validateEmail = (email) => {
+    const schema = Joi.object({
+        email: Joi.string().required().email()
+    });
+    return schema.validate(email);
+}
+
+const validateMobile = (mobile) => {
+    const schema = Joi.object({
+        mobile: Joi.string().required().email()
+    });
+    return schema.validate(mobile);
+}
+
+const validatePassword = (password) => {
+    const schema = {
+        password: Joi.string().required()
+    }
+    return schema.validate(password);
+}
+
+exports.userSchema = userSchema;
+exports.User = User;
+exports.validate = validate;
+exports.validateName = validateName;
+exports.validateEmail = validateEmail;
+exports.validateMobile = validateMobile;
+exports.validatePassword = validatePassword;

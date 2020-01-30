@@ -30,10 +30,6 @@ app.use(helmet());
 routes(router);
 app.use('/api', router);
 
-//app.use('/api/users', middleware.checkToken, users);
-//app.use('/api/token', middleware.checkToken, token);
-//app.use('/api/auth', auth);
-
 app.listen(port, () => {
     console.log(`Server started at port: ${port}`);
 });

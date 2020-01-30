@@ -10,10 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),
     }
 }));
 
@@ -23,21 +23,21 @@ const Header = (props) => {
     const { token, loggingIn, currentUsers } = auth;
     const classes = useStyles();
     return (
-        <AppBar position="static" color="default" style={{ boxShadow: 'none'}}>
+        <AppBar position="static" color="default">
             <Toolbar variant="dense">
-                <IconButton size="small" edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>{ history.push('/'); }}>
+                <IconButton size="small" edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => { history.push('/'); }}>
                     <MenuIcon />
                 </IconButton>
                 <div>
                     {
-                    loggingIn ?
-                    <IconButton size="small" aria-controls="menu-appbar" aria-haspopup="true" onClick={()=>{ history.push('/'); }} color="inherit">
-                        <ExitToApp />
-                    </IconButton>
-                    :
-                    <IconButton size="small" aria-controls="menu-appbar" aria-haspopup="true" onClick={()=>{ history.push('/signin'); }} color="inherit">
-                        <AccountCircle />
-                    </IconButton>
+                        loggingIn ?
+                            <IconButton size="small" aria-controls="menu-appbar" aria-haspopup="true" onClick={() => { history.push('/'); }} color="inherit">
+                                <ExitToApp />
+                            </IconButton>
+                            :
+                            <IconButton size="small" aria-controls="menu-appbar" aria-haspopup="true" onClick={() => { history.push('/signin'); }} color="inherit">
+                                <AccountCircle />
+                            </IconButton>
                     }
                 </div>
             </Toolbar>

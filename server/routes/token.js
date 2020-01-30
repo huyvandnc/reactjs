@@ -1,5 +1,5 @@
 var userController = require('../controllers/user');
 
 module.exports = (router) => {
-    router.route('/').post(userController.token);
+    router.route('/token').post(userController.token);
 }

@@ -2,30 +2,55 @@ import { authConstants } from '../constants';
 
 let token = JSON.parse(localStorage.getItem('token'));
 let currentUsers = JSON.parse(localStorage.getItem('currentUsers'));
-const initialState = currentUsers && token ? { loggedIn: true, currentUsers, token } : {loggingIn: false, currentUsers: {}, token: ""};
+const initialState = currentUsers && token ? { loading: false, loggedIn: true, currentUsers, token } : { loading: false, loggingIn: false, currentUsers: {}, token: "" };
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case authConstants.LOGIN_REQUEST:
+    case authConstants.SIGNUP_REQUEST:
       return {
-        loggingIn: true,
+        loading: true,
+        loggingIn: false,
         currentUsers: action.user,
         token: action.token
       };
-    case authConstants.LOGIN_SUCCESS:
+    case authConstants.SIGNUP_SUCCESS:
       return {
+        loading: false,
         loggedIn: true,
         currentUsers: action.user,
         token: action.token
       };
-    case authConstants.LOGIN_FAILURE:
+    case authConstants.SIGNUP_FAILURE:
       return {
+        loading: false,
         loggedIn: false,
         currentUsers: {},
         token: ""
       };
-    case authConstants.LOGOUT:
+    case authConstants.SIGNIN_REQUEST:
       return {
+        loading: true,
+        loggingIn: false,
+        currentUsers: action.user,
+        token: action.token
+      };
+    case authConstants.SIGNIN_SUCCESS:
+      return {
+        loading: false,
+        loggedIn: true,
+        currentUsers: action.user,
+        token: action.token
+      };
+    case authConstants.SIGNIN_FAILURE:
+      return {
+        loading: false,
+        loggedIn: false,
+        currentUsers: {},
+        token: ""
+      };
+    case authConstants.SIGNOUT:
+      return {
+        loading: false,
         loggedIn: false,
         currentUsers: {},
         token: ""
