@@ -55,7 +55,8 @@ exports.signin = async(req, res) => {
             return res.status(200).header('x-access-token', token).json({
                 success: true,
                 message: 'Xác thực thành công!',
-                user: { _id: user._id, email: user.email, name: user.name, role: user.role }
+                user: { _id: user._id, email: user.email, name: user.name, role: user.role },
+                token: token
             });
         }
     }
@@ -93,7 +94,8 @@ exports.signup = async(req, res) => {
     return res.status(200).header('x-access-token', token).json({
         success: true,
         message: 'Đăng ký thành công!',
-        user: { _id: user._id, email: user.email, mobile: user.mobile, name: user.name, role: user.role }
+        user: { _id: user._id, email: user.email, mobile: user.mobile, name: user.name, role: user.role },
+        token: token
     });
 };
 

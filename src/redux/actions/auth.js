@@ -1,3 +1,4 @@
+import { history } from '../../helpers';
 import { authConstants } from '../constants';
 export const authActions = {
     signIn: (body) => {
@@ -8,6 +9,7 @@ export const authActions = {
             .then((json) => {
                 if(json.success)
                 {
+                    history.push('/');
                     dispatch({ type: authConstants.SIGNIN_SUCCESS, json });
                 }
                 else{
@@ -27,6 +29,7 @@ export const authActions = {
             .then((json) => {
                 if(json.success)
                 {
+                    history.push('/');
                     dispatch({ type: authConstants.SIGNUP_SUCCESS, json });
                 }
                 else{
