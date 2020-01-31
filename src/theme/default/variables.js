@@ -1,13 +1,22 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-const primary = {
-    main: '#3897f0',
-};
+
 const theme = createMuiTheme({
+    shadows: Array(25).fill('none'),
+    typography: {
+        fontFamily: [
+            'Roboto',
+            'Arial',
+            'Helvetica',
+            'sans-serif',
+        ].join(','),
+    },
     palette: {
-        primary,
-    }
+        background: {
+            default: "#ffffff"
+        }
+    },
 });
+
 export default {
-    theme,
-    primary
+    theme
 };

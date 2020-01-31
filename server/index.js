@@ -4,7 +4,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const middleware = require('./middleware');
 const routes = require('./routes');
 const app = express();
 const router = express.Router();

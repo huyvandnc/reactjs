@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { userActions } from '../../redux/actions';
 import styled from 'styled-components';
 import Header from '../../components/header';
 
@@ -15,11 +14,6 @@ const Container = styled.div`
 `;
 
 const Home = (props) => {
-  const { getAllUser } = props;
-  React.useEffect(() => {
-    getAllUser();
-  }, [getAllUser]);
-  
   return (
   <Container>
     <Header {...props}/>
@@ -28,12 +22,10 @@ const Home = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  const { auth } = state;
-  return { auth };
+  return state;
 }
 
-const actionCreators = {
-  getAllUser: userActions.getAllUser,
+const matchDispatchToProps = {
 }
 
-export default connect(mapStateToProps, actionCreators)(Home);
+export default connect(mapStateToProps, matchDispatchToProps)(Home);

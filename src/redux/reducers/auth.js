@@ -1,6 +1,6 @@
 import { authConstants } from '../constants';
 
-let token = JSON.parse(localStorage.getItem('token'));
+let token = localStorage.getItem('token');
 let user = JSON.parse(localStorage.getItem('user'));
 const initialState = user && token ? { loading: false, loggedIn: true, user, token } : { loading: false, loggedIn: false, user: {}, token: '' };
 
@@ -17,8 +17,8 @@ const auth = (state = initialState, action) => {
       return {
         loading: false,
         loggedIn: true,
-        user: action.user,
-        token: action.token
+        user: action.payload.user,
+        token: action.payload.token
       };
     case authConstants.SIGNUP_FAILURE:
       return {
@@ -38,8 +38,8 @@ const auth = (state = initialState, action) => {
       return {
         loading: false,
         loggedIn: true,
-        user: action.user,
-        token: action.token
+        user: action.payload.user,
+        token: action.payload.token
       };
     case authConstants.SIGNIN_FAILURE:
       return {

@@ -10,7 +10,6 @@ import {
   Button,
   Grid,
   Avatar,
-  CssBaseline,
   Box,
   CircularProgress
 } from '@material-ui/core';
@@ -65,7 +64,6 @@ const SignInPage = (props) => {
     <>
       <Notifier />
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlined />

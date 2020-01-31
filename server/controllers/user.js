@@ -1,76 +1,47 @@
 const Bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('../config');
-const {User, validate, validateName, validateEmail, validateMobile, validatePassword} = require('./../models/user');
+const { User } = require('./../models/user');
+const validateSignIn = require('../helpers/validation/signin');
+const validateSignUp = require('../helpers/validation/signup');
 
-exports.getAll = async(req, res) => {
+exports.getAll = async (req, res) => {
     let users = await User.find().select('-password').limit(0);
     return res.status(200).json({ success: true, users });
 };
 
-exports.addUser = async(req, res) => {
-    let {email, password, name, mobile} = req.body;
-
-    const { error } = Validate(req.body);
-    if (error) {
-        return res.status(400).json({
-            success: false,
-            message: error.details[0].message
-        });
+exports.signIn = async (req, res) => {
+    const { errors, isValid } = validateSignIn(req.body);
+    if (!isValid) {
+        return res.status(400).json({ success: false, message: errors });
     }
-    
+
+    let { email, password } = req.body;
     let user = await User.findOne({ email: email });
     if (user) {
-        return res.json({
-            success: false,
-            message: "That user already exisits!"
-        });
-    }
-    else
-    {
-        user = new User();
-        user.email = email;
-        user.password = Bcrypt.hashSync(password, 10);
-        user.name = name ? name : email;
-        user.mobile = mobile;
-        await user.save();
-        return res.json({
-            success: true,
-            message: "New user created!",
-            user
-        });
-    }
-};
-
-exports.signin = async(req, res) => {
-    const { error } = validate(req.body);
-    //console.log('error', error);
-    if(error) return res.status(400).json({ success: false, message: error.details[0].message });
-
-    let {email, password} = req.body;
-    let user = await User.findOne({ email: email });
-    if (user) {
-        if(Bcrypt.compare(password, user.password)) {
+        const compare = await Bcrypt.compare(password, user.password);
+        if (compare) {
             const token = user.generateAuthToken();
             return res.status(200).header('x-access-token', token).json({
                 success: true,
                 message: 'Xác thực thành công!',
-                user: { _id: user._id, email: user.email, name: user.name, role: user.role },
+                user: { _id: user._id, email: user.email, mobile: user.mobile, name: user.name, role: user.role },
                 token: token
             });
+        }
+        else{
+            return res.status(400).json({ success: false, message: "Mật khẩu không hợp lệ" });
         }
     }
     return res.status(400).json({ success: false, message: "Người dùng không tồn tại" });
 };
 
-exports.signup = async(req, res) => {
-    const { error } = validate(req.body);
-    console.log('error', error);
-    if(error) return res.status(400).json({ success: false, message: error.details[0].message });
+exports.signUp = async (req, res) => {
+    const { errors, isValid } = validateSignUp(req.body);
+    if (!isValid) {
+        return res.status(400).json({ success: false, message: errors });
+    }
 
-    let {name, email, mobile, password, repassword} = req.body;
-    if(password != "" && password !== repassword)
-    {
+    let { name, email, mobile, password, repassword } = req.body;
+    if (password != "" && password !== repassword) {
         return res.status(400).json({ success: false, message: "Mật khẩu xác nhận không hợp lệ" });
     }
     let user = await User.findOne({ email: email });
@@ -101,12 +72,12 @@ exports.signup = async(req, res) => {
 
 //https://github.com/simpletut/Universal-React-Redux-Registration/blob/master/Backend/middleware/auth.js
 
-exports.token = async(req, res) => {
-    let {refreshToken} = req.body;
+exports.token = async (req, res) => {
+    let { refreshToken } = req.body;
     return res.status(400).json({ success: false, message: "Người dùng không tồn tại" });
 };
 
-exports.getUser = async(req, res) => {
+exports.getUser = async (req, res) => {
     let user = await User.findById(req.params.user_id).select('-password');
     if (user) {
         return res.status(200).json({

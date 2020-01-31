@@ -47,48 +47,5 @@ userSchema.methods.generateAuthToken = () => {
 }
 const User = mongoose.model('Users', userSchema);
 
-const validate = (user) => {
-    const schema = Joi.object({
-        name: Joi.string().required(),
-        email: Joi.string().required().email(),
-        mobile: Joi.string().required(),
-        password: Joi.string().required()
-    });
-    return schema.validate(user);
-}
-
-const validateName = (name) => {
-    const schema = {
-        name: Joi.string().required()
-    }
-    return schema.validate(name);
-}
-
-const validateEmail = (email) => {
-    const schema = Joi.object({
-        email: Joi.string().required().email()
-    });
-    return schema.validate(email);
-}
-
-const validateMobile = (mobile) => {
-    const schema = Joi.object({
-        mobile: Joi.string().required().email()
-    });
-    return schema.validate(mobile);
-}
-
-const validatePassword = (password) => {
-    const schema = {
-        password: Joi.string().required()
-    }
-    return schema.validate(password);
-}
-
 exports.userSchema = userSchema;
 exports.User = User;
-exports.validate = validate;
-exports.validateName = validateName;
-exports.validateEmail = validateEmail;
-exports.validateMobile = validateMobile;
-exports.validatePassword = validatePassword;

@@ -6,7 +6,7 @@ const logger = createLogger({
     collapsed: true
 });
 
-export default function configureStore() {
+const configureStore = () => {
     const composeEnhancers =
         typeof window === 'object' &&
             window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
@@ -25,3 +25,5 @@ export default function configureStore() {
 
     return store;
 }
+
+export default configureStore;
