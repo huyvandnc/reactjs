@@ -4,9 +4,9 @@ export const userActions = {
         dispatch({ type: userConstants.GETALL_REQUEST});
         fetch(`/api/users`)
         .then(res => res.json())
-        .then(res => {
-            dispatch({ type: userConstants.GETALL_SUCCESS, res });
-            return res;
+        .then(json => {
+            dispatch({ type: userConstants.GETALL_SUCCESS, json });
+            return json;
         })
         .catch(error => {
             dispatch({ type: userConstants.GETALL_FAILURE, error });
@@ -14,19 +14,14 @@ export const userActions = {
     },
     getUser: async (_id) => async (dispatch) => {
         dispatch({ type: userConstants.GET_REQUEST, _id });
-        const resp = await fetch(`/api/user/${_id}`);
-        const json = await resp.json();
-        try{
-            if(json.status)
-            {
-                dispatch({ type: userConstants.GET_SUCCESS, json });
-            }
-            else{
-                dispatch({ type: userConstants.GET_FAILURE, json });
-            }
-        }
-        catch(e) {
-            dispatch({ type: userConstants.GET_FAILURE, e });
-        }
+        fetch(`/api/user/${_id}`)
+        .then(res => res.json())
+        .then(json => {
+            dispatch({ type: userConstants.GET_SUCCESS, json });
+            return json;
+        })
+        .catch(error => {
+            dispatch({ type: userConstants.GET_FAILURE, error });
+        });
     }
 }

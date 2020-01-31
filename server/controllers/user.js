@@ -44,8 +44,8 @@ exports.addUser = async(req, res) => {
 
 exports.signin = async(req, res) => {
     const { error } = validate(req.body);
-    console.log('error', error);
-    if(error) return res.status(400).send(error.details[0].message);
+    //console.log('error', error);
+    if(error) return res.status(400).json({ success: false, message: error.details[0].message });
 
     let {email, password} = req.body;
     let user = await User.findOne({ email: email });

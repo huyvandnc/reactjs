@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import users from './users';
 import auth from './auth';
-import { routerReducer } from 'react-router-redux';
+import notifications from './notifications';
 
-export default combineReducers({
-    users,
+const rootReducer = combineReducers({
     auth,
-    router: routerReducer
+    notifications,
 });
+
+export default rootReducer;

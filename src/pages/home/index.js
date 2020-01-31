@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { userActions } from '../../redux/actions';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const Home = (props) => {
   const { getAllUser } = props;
-  useEffect(() => {
+  React.useEffect(() => {
     getAllUser();
   }, [getAllUser]);
   

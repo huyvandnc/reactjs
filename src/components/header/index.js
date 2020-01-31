@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
 const Header = (props) => {
     console.log('Header props', props);
     const { auth, history } = props;
-    const { token, loggingIn, currentUsers } = auth;
     const classes = useStyles();
     return (
         <AppBar position="static" color="default">
@@ -30,7 +29,7 @@ const Header = (props) => {
                 </IconButton>
                 <div>
                     {
-                        loggingIn ?
+                        auth.loggingIn ?
                             <IconButton size="small" aria-controls="menu-appbar" aria-haspopup="true" onClick={() => { history.push('/'); }} color="inherit">
                                 <ExitToApp />
                             </IconButton>

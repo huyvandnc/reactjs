@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container,
   Typography,
@@ -15,7 +15,6 @@ import { LockOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { authActions } from '../../redux/actions';
-import styled from 'styled-components';
 
 const Copyright = () => {
   return (
@@ -51,7 +50,7 @@ const SignUpPage = (props) => {
   //console.log('SignUpPage', props);
   const classes = useStyles();
   const { auth, signUp, history } = props;
-  const { loading, token, loggingIn, currentUsers } = auth;
+  const { loading } = auth;
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [mobile, setMobile] = React.useState('');
@@ -61,7 +60,6 @@ const SignUpPage = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new URLSearchParams(new FormData(event.target));
-    console.log('handleSubmit', data);
     signUp(data);
   }
 
@@ -105,8 +103,8 @@ const mapStateToProps = (state) => {
   return { auth };
 }
 
-const actionCreators = {
+const matchDispatchToProps = {
   signUp: authActions.signUp
 }
 
-export default connect(mapStateToProps, actionCreators)(SignUpPage);
+export default connect(mapStateToProps, matchDispatchToProps)(SignUpPage);
