@@ -49,7 +49,6 @@ export const authActions = {
     },
     signOut: () => {
         return (dispatch) => {
-            console.log('signOut');
             localStorage.clear();
             dispatch({ type: authConstants.SIGNOUT });
         }
