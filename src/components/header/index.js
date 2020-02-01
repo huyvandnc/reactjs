@@ -14,7 +14,6 @@ import {
     Divider
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { AccountCircle, ShoppingCart } from '@material-ui/icons';
 import { authActions } from '../../redux/actions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import styles from "./styles";
@@ -65,7 +64,7 @@ const Header = (props) => {
                     auth.loggedIn ?
                         <>
                             <MenuList className={classes.horiz}>
-                                <MenuItem onClick={() => history.push('/signin')} ref={profileRef} aria-controls={profileOpen ? 'profile-menu' : undefined} aria-haspopup="true" onClick={handleToggle}>
+                                <MenuItem ref={profileRef} aria-controls={profileOpen ? 'profile-menu' : undefined} aria-haspopup="true" onClick={handleToggle}>
                                     Chào, <Typography component="span" color="primary">{auth.user.name}</Typography>!
                                 </MenuItem>
                             </MenuList>
