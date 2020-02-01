@@ -14,7 +14,8 @@ import { LockOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { authActions } from '../../redux/actions';
-import Notifier from '../../containers/Notifier';
+import MainLayout from '../../layouts/MainLayout';
+import Header from '../../components/header';
 
 const Copyright = () => {
   return (
@@ -59,42 +60,43 @@ const SignUpPage = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new URLSearchParams(new FormData(event.target));
-    signUp(data);
+    signUp(new URLSearchParams(new FormData(event.target)));
   }
 
   return (
     <>
-      <Notifier />
-      <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlined />
-          </Avatar>
-          <Typography component="h1" variant="h5">Đăng ký</Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField value={name} onChange={e => setName(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth id="name" label="Tên" name="name" />
-            <TextField value={email} onChange={e => setEmail(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth id="email" label="Email" name="email" />
-            <TextField value={mobile} onChange={e => setMobile(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth id="mobile" label="Di động" name="mobile" />
-            <TextField value={password} onChange={e => setPasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth name="password" label="Mật khẩu" type="password" id="password" />
-            <TextField value={repassword} onChange={e => setRePasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth name="repassword" label="Xác nhận Mật khẩu" type="password" id="repassword" />
-            <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={loading}>
-              {loading ? <CircularProgress size={24} /> : 'Đăng ký'}
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link variant="body2" onClick={() => { history.push('/forgot'); }}>Quên mật khẩu?</Link>
+      <MainLayout>
+        <Header {...props} />
+        <Container component="main" maxWidth="xs">
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlined />
+            </Avatar>
+            <Typography component="h1" variant="h5">Đăng ký</Typography>
+            <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
+              <TextField value={name} onChange={e => setName(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth id="name" label="Tên" name="name" />
+              <TextField value={email} onChange={e => setEmail(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth id="email" label="Email" name="email" />
+              <TextField value={mobile} onChange={e => setMobile(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth id="mobile" label="Di động" name="mobile" />
+              <TextField value={password} onChange={e => setPasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth name="password" label="Mật khẩu" type="password" id="password" />
+              <TextField value={repassword} onChange={e => setRePasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth name="repassword" label="Xác nhận Mật khẩu" type="password" id="repassword" />
+              <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={loading}>
+                {loading ? <CircularProgress size={24} /> : 'Đăng ký'}
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link variant="body2" onClick={() => { history.push('/forgot'); }}>Quên mật khẩu?</Link>
+                </Grid>
+                <Grid item>
+                  <Link variant="body2" onClick={() => { history.push('/signin'); }}>Đã có tài khoản? Đăng nhập</Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link variant="body2" onClick={() => { history.push('/signin'); }}>Đã có tài khoản? Đăng nhập</Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Container>
+      </MainLayout>
     </>
   );
 }

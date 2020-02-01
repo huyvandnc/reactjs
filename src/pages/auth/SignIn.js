@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authActions } from '../../redux/actions';
-import Notifier from '../../containers/Notifier';
 import {
   Container,
   Typography,
@@ -15,7 +14,8 @@ import {
 } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-
+import MainLayout from '../../layouts/MainLayout';
+import Header from '../../components/header';
 
 const Copyright = () => {
   return (
@@ -56,49 +56,48 @@ const SignInPage = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new URLSearchParams(new FormData(event.target));
-    signIn(data);
+    signIn(new URLSearchParams(new FormData(event.target)));
   }
 
   return (
     <>
-      <Notifier />
-      <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlined />
-          </Avatar>
-          <Typography component="h1" variant="h5">Đăng Nhập</Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField value={email} onChange={e => setEmail(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth id="email" label="Email" name="email" autoComplete="email" autoFocus />
-            <TextField value={password} onChange={e => setPasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth name="password" label="Mật khẩu" type="password" id="password" autoComplete="current-password" />
-            <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={loading}>
-              {loading ? <CircularProgress size={24} /> : 'Đăng nhập'}
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link variant="body2" onClick={() => { history.push('/forgot'); }}>Quên mật khẩu?</Link>
+      <MainLayout>
+        <Header {...props} />
+        <Container component="main" maxWidth="xs">
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlined />
+            </Avatar>
+            <Typography component="h1" variant="h5">Đăng Nhập</Typography>
+            <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
+              <TextField value={email} onChange={e => setEmail(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth label="Email" name="email" id="email" />
+              <TextField value={password} onChange={e => setPasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth label="Mật khẩu" type="password" name="password" id="password" />
+              <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={loading}>
+                {loading ? <CircularProgress size={24} /> : 'Đăng nhập'}
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link variant="body2" onClick={() => { history.push('/forgot'); }}>Quên mật khẩu?</Link>
+                </Grid>
+                <Grid item>
+                  <Link variant="body2" onClick={() => { history.push('/signup'); }}>Chưa có tài khoản? Đăng ký</Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link variant="body2" onClick={() => { history.push('/signup'); }}>Chưa có tài khoản? Đăng ký</Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Container>
+      </MainLayout>
     </>
   );
 }
 
 const mapStateToProps = (state) => {
-  //console.log('state', state);
   const { auth } = state;
   return { auth };
 }
-
 
 const matchDispatchToProps = {
   signIn: authActions.signIn

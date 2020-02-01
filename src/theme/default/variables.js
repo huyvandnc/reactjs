@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
-    shadows: Array(25).fill('none'),
+    //shadows: Array(25).fill('none'),
     typography: {
         fontFamily: [
             'Roboto',

@@ -1,4 +1,4 @@
-import { history } from '../../helpers';
+import { history } from '../../utils';
 import { authConstants } from '../constants';
 import { addNotification } from '../actions'
 

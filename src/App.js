@@ -7,7 +7,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme/default';
 import Home from './pages/home';
 import { SignIn, SignUp } from './pages/auth';
-import { history } from './helpers';
+import { history } from './utils';
 import './App.css';
 import configureStore from './redux/store';
 const store = configureStore();

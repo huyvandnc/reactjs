@@ -1,7 +1,6 @@
 const Bcrypt = require('bcryptjs');
+const yup = require('yup');
 const { User } = require('./../models/user');
-const validateSignIn = require('../helpers/validation/signin');
-const validateSignUp = require('../helpers/validation/signup');
 
 exports.getAll = async (req, res) => {
     let users = await User.find().select('-password').limit(0);
@@ -9,9 +8,18 @@ exports.getAll = async (req, res) => {
 };
 
 exports.signIn = async (req, res) => {
-    const { errors, isValid } = validateSignIn(req.body);
-    if (!isValid) {
-        return res.status(400).json({ success: false, message: errors });
+    const schema = yup.object({
+        email: yup.string().email('Email không hợp lệ.')
+            .required('Vui lòng nhập Email.'),
+        password: yup.string()
+            .min(6, 'Mật khẩu có độ dài ít nhất 6 ký tự.')
+            .max(32, 'Mật khẩu có độ dài nhiều nhất 32 ký tự.')
+            .required('Vui lòng nhập một Mật khẩu.'),
+    });
+
+    const { error, message } = await schema.validate(req.body).catch(error => Promise.resolve({ message: error.message, error: true }));
+    if (error) {
+        return res.status(400).json({ success: false, message: message });
     }
 
     let { email, password } = req.body;
@@ -27,7 +35,7 @@ exports.signIn = async (req, res) => {
                 token: token
             });
         }
-        else{
+        else {
             return res.status(400).json({ success: false, message: "Mật khẩu không hợp lệ" });
         }
     }
@@ -35,15 +43,29 @@ exports.signIn = async (req, res) => {
 };
 
 exports.signUp = async (req, res) => {
-    const { errors, isValid } = validateSignUp(req.body);
-    if (!isValid) {
-        return res.status(400).json({ success: false, message: errors });
+    const schema = yup.object({
+        name: yup.string()
+            .required('Tên không được để trống.'),
+        email: yup.string().email('Email không hợp lệ.')
+            .required('Email không được để trống.'),
+        mobile: yup.string()
+            .required('Số điện thoại không được để trống.'),
+        password: yup.string()
+            .min(6, 'Mật khẩu phải có ít nhất 6 ký tự.')
+            .max(32, 'Mật khẩu phải có nhiều nhất 32 ký tự.')
+            .required('Mật khẩu không được để trống.'),
+    });
+
+    const { error, message } = await schema.validate(req.body).catch(error => Promise.resolve({ message: error.message, error: true }));
+    if (error) {
+        return res.status(400).json({ success: false, message: message });
     }
 
     let { name, email, mobile, password, repassword } = req.body;
     if (password != "" && password !== repassword) {
         return res.status(400).json({ success: false, message: "Mật khẩu xác nhận không hợp lệ" });
     }
+
     let user = await User.findOne({ email: email });
     if (user) {
         return res.status(400).json({ success: false, message: "Người dùng đã tồn tại" });
@@ -69,8 +91,6 @@ exports.signUp = async (req, res) => {
         token: token
     });
 };
-
-//https://github.com/simpletut/Universal-React-Redux-Registration/blob/master/Backend/middleware/auth.js
 
 exports.token = async (req, res) => {
     let { refreshToken } = req.body;

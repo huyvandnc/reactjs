@@ -36,7 +36,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.0",
-    "validator": "^12.2.0"
+    "validator": "^12.2.0",
+    "yup": "^0.28.1"
   },
   "scripts": {
     "dev": "concurrently \"react-scripts start\" \"cd server & nodemon index.js\"",
