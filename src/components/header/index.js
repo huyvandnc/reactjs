@@ -5,7 +5,6 @@ import {
     Toolbar,
     IconButton,
     Typography,
-    Button,
     Paper,
     Popper,
     Grow,
@@ -65,9 +64,11 @@ const Header = (props) => {
                 {
                     auth.loggedIn ?
                         <>
-                            <IconButton size="small" ref={profileRef} aria-controls={profileOpen ? 'profile-menu' : undefined} aria-haspopup="true" onClick={handleToggle} color="inherit">
-                                <AccountCircle />
-                            </IconButton>
+                            <MenuList className={classes.horiz}>
+                                <MenuItem onClick={() => history.push('/signin')} ref={profileRef} aria-controls={profileOpen ? 'profile-menu' : undefined} aria-haspopup="true" onClick={handleToggle}>
+                                    Chào, <Typography component="span" color="primary">{auth.user.name}</Typography>!
+                                </MenuItem>
+                            </MenuList>
                             <Popper open={profileOpen} anchorEl={profileRef.current} role={undefined} transition disablePortal>
                                 {({ TransitionProps, placement }) => (
                                     <Grow
@@ -77,9 +78,9 @@ const Header = (props) => {
                                         <Paper>
                                             <ClickAwayListener onClickAway={handleClose}>
                                                 <MenuList autoFocusItem={profileOpen} id="profile-menu">
-                                                    <MenuItem onClick={() => { }}>Profile</MenuItem>
-                                                    <MenuItem onClick={() => { }}>My account</MenuItem>
-                                                    <MenuItem onClick={signOut}>Logout</MenuItem>
+                                                    <MenuItem onClick={() => { }}>Hồ sơ</MenuItem>
+                                                    <MenuItem onClick={() => { }}>Tài khoản</MenuItem>
+                                                    <MenuItem onClick={signOut}>Thoát</MenuItem>
                                                 </MenuList>
                                             </ClickAwayListener>
                                         </Paper>
@@ -89,8 +90,10 @@ const Header = (props) => {
                         </>
                         :
                         <>
-                            <Button size="small" onClick={() => history.push('/signin')}>Đăng nhập</Button>
-                            <Button size="small" onClick={() => history.push('/signup')}>Đăng ký</Button>
+                            <MenuList className={classes.horiz}>
+                                <MenuItem onClick={() => history.push('/signin')}>Đăng nhập</MenuItem>
+                                <MenuItem onClick={() => history.push('/signup')}>Đăng ký</MenuItem>
+                            </MenuList>
                         </>
                 }
             </Toolbar>

@@ -28,7 +28,6 @@ const styles = theme => ({
     },
     horiz: {
         '&>li': {
-            fontWeight: '500',
             fontSize: '15px',
             display: 'inline-block'
         },
