@@ -4,7 +4,7 @@ import validator from 'validator';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { passwordReg } from './user.validation';
-import config from '../../config';
+import configs from '../../configs';
 
 const schema = new mongoose.Schema({
     username: {
@@ -51,6 +51,11 @@ const schema = new mongoose.Schema({
         type: String,
         default: 'user'
     },
+    token: {
+        type: String,
+        trim: true,
+        default: ''
+    },
     createDate: {
         type: Date,
         default: Date.now
@@ -69,11 +74,8 @@ schema.methods.validPassword = function (password) {
 }
 
 schema.methods.createToken = function () {
-    //set expiration to 60 days
-    let today = new Date();
-    let exp = new Date(today);
-    exp.setDate(today.getDate() + 60);
-    const token = jwt.sign({ _id: this._id, exp: parseInt(exp.getTime() / 1000) }, config.secret);
+    const token = jwt.sign({ _id: this._id }, configs.secret);
+    this.token = token;
     return token;
 }
 

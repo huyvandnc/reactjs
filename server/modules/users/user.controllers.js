@@ -10,11 +10,11 @@ export const signIn = async (req, res) => {
             const compare = user.validPassword(password);
             if (compare) {
                 const token = user.createToken();
+                //user.updateOne({ _id: user._id }, { token: token });
                 return res.status(200).header('x-access-token', token).json({
                     success: true,
                     message: 'Xác thực thành công!',
-                    user: user,
-                    token: token
+                    user: user
                 });
             }
             else {
@@ -32,6 +32,8 @@ export const signIn = async (req, res) => {
 export const signUp = async (req, res) => {
     try {
         const user = await User.create(req.body);
+        const token = user.createToken();
+        user.updateOne({ _id: user._id }, { token: token });
         return res.status(201).json(user);
     } catch (e) {
         if (e.errors)
