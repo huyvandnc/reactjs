@@ -68,12 +68,12 @@ schema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 }
 
-schema.methods.generateJWT = function () {
+schema.methods.createToken = function () {
     //set expiration to 60 days
     let today = new Date();
     let exp = new Date(today);
     exp.setDate(today.getDate() + 60);
-    const token = jwt.sign({ _id: this._id, exp: parseInt(exp.getTime() / 1000)}, config.secret);
+    const token = jwt.sign({ _id: this._id, exp: parseInt(exp.getTime() / 1000) }, config.secret);
     return token;
 }
 

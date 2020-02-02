@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
+import passport from 'passport';
 
 import routes from './routes';
 import apiRoutes from './modules';
@@ -35,6 +36,8 @@ mongoose
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(helmet());
 
 apiRoutes(app);
