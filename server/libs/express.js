@@ -14,7 +14,7 @@ export function index(app) {
         app.use(cookieParser());
         app.use(compression());
         app.use(helmet());
-        //app.use(cors({ origin: true, credentials: true }));
+        app.use(cors({ origin: true, credentials: true }));
 
         app.use(passport.initialize());
         app.use(passport.session());
