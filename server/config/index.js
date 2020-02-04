@@ -35,13 +35,13 @@ export default {
             enabled: false,
             clientID: '',
             clientSecret: '',
-            callbackURL: '/auth/facebook/callback'
+            callbackURL: '/api/v1/auth/facebook/callback'
         },
         google: {
-            enabled: false,
-            clientID: '',
-            clientSecret: '',
-            callbackURL: '/auth/google/callback'
+            enabled: true,
+            clientID: '1070591685553-0gfd9vqb2a30p32qn8fd6jbtvtcranaq.apps.googleusercontent.com',
+            clientSecret: 'zB2gthK-kuRKQRkAN73PvINF',
+            callbackURL: '/api/v1/auth/google/callback'
         }
     },
     // globals

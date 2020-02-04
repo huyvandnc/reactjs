@@ -55,10 +55,12 @@
     "yup": "^0.28.1"
   },
   "scripts": {
-    "dev": "concurrently --raw --kill-others \"react-scripts start\" \"nodemon server/index.js --exec babel-node\"",
+    "dev": "concurrently \"react-scripts start\" \"nodemon server/index.js --exec babel-node\"",
     "start": "concurrently \"react-scripts start\" \"node server/index.js --exec babel-node\"",
     "build": "react-scripts build",
-    "server": "concurrently --raw --kill-others \"nodemon server/index.js --exec babel-node\""
+    "server": "concurrently \"nodemon server/index.js --exec babel-node\"",
+    "stop-win": "Taskkill /IM node.exe /F",
+    "stop-linux": "killall node"
   },
   "eslintConfig": {
     "extends": "react-app"

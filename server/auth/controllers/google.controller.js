@@ -3,7 +3,7 @@ import { initialize } from '../services/session.service';
 
 // Init passport
 export function index(req, res, next) {
-  passport.authenticate('google')(req, res, next);
+  passport.authenticate('google', { scope: ['email', 'profile', 'openid'] })(req, res, next);
 }
 
 // Callback passport

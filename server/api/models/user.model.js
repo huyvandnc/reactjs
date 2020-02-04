@@ -141,7 +141,6 @@ schema.statics = {
                 user.save().then(_user => resolve(_user)).catch(err => reject(err));
             }).catch(err => reject(err));
         });
-
     },
 
     findOneByUsername(username) {

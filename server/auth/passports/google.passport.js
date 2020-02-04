@@ -7,10 +7,12 @@ import config from '../../config';
 passport.use(new GoogleStrategy({
     clientID: config.oAuth.google.clientID,
     clientSecret: config.oAuth.google.clientSecret,
-    callbackURL: config.oAuth.google.callbackURL
-}, (accessToken, refreshToken, profile, done) => {
+    callbackURL: config.oAuth.google.callbackURL,
+    passReqToCallback   : true
+}, (request, accessToken, refreshToken, profile, done) => {
     let social = profile;
     social.photo = profile._json.image.url;
+    console.log('social', social);
     User.loginBySocial('google', social)
         .then(user => done(null, user))
         .catch(err => done(err));
