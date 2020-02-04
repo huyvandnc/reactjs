@@ -1,13 +1,15 @@
 import { Router } from 'express';
-import validate from 'express-validation';
-import * as userController from './../controllers/user.controller';
-import validation from '../validation/user.validation';
-import { authLocal, authJwt } from '../../../services/auth.services';
+import * as controller from './../controllers/user.controller';
+import { mw } from '../../auth/services/mw.service';
 
 const routes = new Router();
 //routes.get('/:id', authJwt, userController.getUser);
 //routes.post('/signin', validate(validation.signin), userController.signIn);
 //routes.post('/signup', validate(validation.signup), userController.signUp);
-routes.post('/create', userController.create);
+routes.get('/me', mw(), controller.me);
+routes.post('/user/create', controller.create);
+routes.put('/user/update', mw(), controller.update);
+routes.get('/user/:id', controller.read);
+
 
 export default routes;

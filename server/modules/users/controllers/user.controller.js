@@ -10,6 +10,35 @@ export const create = async (req, res) => {
     }
 }
 
+export const read = async (req, res) => {
+    let { id } = req.params;
+    if (!id) return res.status(400).json({ success: false, message: "Dữ liệu không hợp lệ!" });
+    try {
+        let user = await User.findOne({ _id: id }, {
+            social: 0
+        }).select('-email');
+        if (user) {
+            user = Object.assign({ success: true }, user._doc);
+            return res.status(200).json(user);
+        }
+        return res.status(400).json({ success: false, message: "Người dùng không tồn tại!" });
+    } catch (e) {
+        return res.status(500).json(e);
+    }
+}
+
+export const update = (req, res) => {
+    let user = req.user;
+    delete user.session._id;
+    return res.status(200).json(user);
+}
+
+export const me = (req, res) => {
+    let user = req.user;
+    delete user.session._id;
+    return res.status(200).json(user);
+}
+
 export const login = (req, res) => {
     return res.status(200).json(req.user);
 }
@@ -52,26 +81,5 @@ export const signUp = async (req, res) => {
         if (e.errors)
             return res.status(500).json(validation.errors(e));
         return res.status(500).json(e);
-    }
-}
-
-export const getUser = async (req, res) => {
-    const { user } = req;
-    let { id } = req.params;
-
-    if (!id) return res.status(400).json({ success: false, message: "Dữ liệu không hợp lệ!" });
-
-    if (user) {
-        try {
-            let user = await User.findById(id).select('-password');
-            if (user)
-                return res.status(200).json({ success: true, message: `Thông tin của ${user.fullName}`, user: user });
-            return res.status(400).json({ success: false, message: "Người dùng không tồn tại!" });
-        } catch (e) {
-            return res.status(500).json(e);
-        }
-    }
-    else {
-        return res.status(401).json({ success: false, message: "Token không hợp lệ!" });
     }
 }

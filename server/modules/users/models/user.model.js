@@ -19,19 +19,23 @@ const schema = new mongoose.Schema({
         type: String,
         lowercase: true
     },
-    photo: String,
     mobile: String,
-    provider: {
-        type: String,
-        default: 'local'
-    },
     name: {
         type: String
     },
     lastname: String,
+    photo: String,
+    provider: {
+        type: String,
+        default: 'local'
+    },
     roles: {
         type: Array,
         default: ['user']
+    },
+    status: {
+        type: Number,
+        default: 1
     },
     date: {
         type: Date,
@@ -60,9 +64,7 @@ schema.methods.validPassword = function (password) {
 }
 
 schema.methods.createToken = function () {
-    const token = jwt.sign({ _id: this._id }, configs.secret);
-    this.token = token;
-    return token;
+    return jwt.sign({ _id: this._id }, configs.secret);
 }
 
 // Trigger method's before save
