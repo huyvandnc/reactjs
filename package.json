@@ -52,10 +52,10 @@
     "yup": "^0.28.1"
   },
   "scripts": {
-    "dev": "concurrently \"react-scripts start\" \"nodemon --exec babel-node server/index.js\"",
-    "start": "concurrently \"react-scripts start\" \"cd server & node index.js\"",
+    "dev": "concurrently \"react-scripts start\" \"nodemon server/index.js --exec babel-node -e js\"",
+    "start": "concurrently \"react-scripts start\" \"node server/index.js --exec babel-node -e js\"",
     "build": "react-scripts build",
-    "server": "concurrently \"nodemon --exec babel-node server/index.js\""
+    "server": "concurrently \"nodemon server/index.js --exec babel-node -e js\""
   },
   "eslintConfig": {
     "extends": "react-app"

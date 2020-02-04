@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import validate from 'express-validation';
-import * as userController from './user.controller';
-import validation from './user.validation';
-import { authLocal, authJwt } from '../../services/auth.services';
+import * as userController from './../controllers/user.controller';
+import validation from '../validation/user.validation';
+import { authLocal, authJwt } from '../../../services/auth.services';
 
 const routes = new Router();
 //routes.get('/:id', authJwt, userController.getUser);

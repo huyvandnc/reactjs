@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
-import validator from 'validator';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { passwordReg } from './user.validation';
-import configs from '../../configs';
+import configs from '../../../configs';
 
 const schema = new mongoose.Schema({
     username: {

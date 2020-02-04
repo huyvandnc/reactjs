@@ -1,6 +1,5 @@
-import { result, notFound, error } from 'express-easy-helper';
-import User from './user.model';
-import validation from './user.validation';
+import User from '../models/user.model';
+import validation from '../validation/user.validation';
 
 export const create = async (req, res) => {
     try {
