@@ -14,18 +14,18 @@ git config --global user.email "huyvan.dnc@gmail.com"
 - [ ]../api/signup/local
 - [ ]../api/signup/google
 - [ ]../api/signup/facebook
-- # Auth
+- #### Auth
 - [✔]../api/auth/local
 - [✔]../api/auth/google
 - [✔]../api/auth/facebook
-- # Connect/Unlink
+- #### Connect/Unlink
 - [ ]../api/connect/local
 - [ ]../api/connect/google
 - [ ]../api/connect/facebook
 - [ ]../api/unlink
 - [ ]../api/unlink/google
 - [ ]../api/unlink/facebook
-- # User/Profile
+- #### User/Profile
 - [✔]../api/user
 - [✔]../api/user/me
 - [✔]../api/user/:id
