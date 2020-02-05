@@ -9,10 +9,9 @@ passport.use(new GoogleStrategy({
     clientSecret: config.oAuth.google.clientSecret,
     callbackURL: config.oAuth.google.callbackURL,
     passReqToCallback   : true
-}, (request, accessToken, refreshToken, profile, done) => {
+}, (accessToken, refreshToken, profile, done) => {
     let social = profile;
-    social.photo = profile._json.image.url;
-    console.log('social', social);
+    social.photo = profile._json.picture;
     User.loginBySocial('google', social)
         .then(user => done(null, user))
         .catch(err => done(err));

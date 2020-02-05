@@ -6,9 +6,6 @@ import config from '../../config';
 const schema = new mongoose.Schema({
     username: {
         type: String,
-        required: [
-            true, 'Username is required.'
-        ],
         unique: true
     },
     password: {

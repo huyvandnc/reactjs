@@ -11,5 +11,7 @@ import * as controller from './../controllers/local.controller';
 export default () => {
     const router = new Router();
     router.post('/auth/local', controller.callback);
+    //router.post('/connect/local', controller.connect);
+    //router.post('/unlink/local', controller.unlink);
     return router;
 }

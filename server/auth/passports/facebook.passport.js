@@ -3,7 +3,7 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 import User from '../../api/models/user.model';
 import config from '../../config';
 
-passport.use('facebook', new FacebookStrategy({
+passport.use(new FacebookStrategy({
     clientID: config.oAuth.facebook.clientID,
     clientSecret: config.oAuth.facebook.clientSecret,
     callbackURL: config.oAuth.facebook.callbackURL

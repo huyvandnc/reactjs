@@ -5,6 +5,7 @@ import config from '../../config';
 
 // Initialize after login success
 export async function initialize(err, user, res) {
+    console.log('user', user);
     try {
         // Errors
         if (err)
@@ -14,7 +15,7 @@ export async function initialize(err, user, res) {
 
         // Calculate expire by user roles, by default takes the role with the longest 'max'
         let expire = calc(time(config.roles, user.roles), 'max');
-        console.log('expire', expire);
+
         let token = jwt.sign({
             _id: user._id,
             ip: res.req.headers['x-forwarded-for'] || res.req.connection.remoteAddress,

@@ -11,3 +11,9 @@ import { initialize } from '../services/session.service';
 export function callback(req, res, next) {
     passport.authenticate('local', (err, user) => initialize(err, user, res))(req, res, next);
 }
+
+export function connect(req, res, next) {
+}
+
+export function unlink(req, res, next) {
+}
