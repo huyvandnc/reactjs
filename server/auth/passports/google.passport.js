@@ -9,10 +9,14 @@ passport.use(new GoogleStrategy({
     clientSecret: config.oAuth.google.clientSecret,
     callbackURL: config.oAuth.google.callbackURL,
     passReqToCallback   : true
-}, (accessToken, refreshToken, profile, done) => {
-    let social = profile;
-    social.photo = profile._json.picture;
-    User.loginBySocial('google', social)
-        .then(user => done(null, user))
-        .catch(err => done(err));
+}, (req, accessToken, refreshToken, profile, done) => {
+    console.log('profile', profile);
+    let user = profile;
+    done(null, user);
+//     let social = profile;
+//     social.photo = profile._json.picture;
+//     User.loginBySocial('google', social)
+//         .then(user => done(null, user))
+//         .catch(err => done(err));
+// }));
 }));

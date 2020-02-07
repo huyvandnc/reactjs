@@ -8,8 +8,11 @@ export async function initialize(err, user, res) {
     console.log('user', user);
     try {
         // Errors
-        if (err)
+        if (err){
+            console.log('err', err);
             return invalid(res, { message: err });
+        }
+            
         if (!user)
             return error(res, { message: 'Something went wrong, please try again.' });
 

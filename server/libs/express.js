@@ -22,6 +22,14 @@ export function index(app) {
         if (config.log)
             app.use(morgan('dev'));
 
+        passport.serializeUser((user, cb) => {
+            cb(null, user);
+        });
+
+        passport.deserializeUser((user, cb) => {
+            cb(null, user);
+        });
+
         resolve();
     })
 };

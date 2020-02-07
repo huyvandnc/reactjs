@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme/default';
 import Home from './pages/home';
 import { SignIn, SignUp } from './pages/auth';
+import UserProvider from "./contexts/UserProvider";
 import { history } from './utils';
 import './App.css';
 import configureStore from './redux/store';
@@ -20,10 +21,11 @@ const App = () => {
         <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "right", }}>
           <Router history={history}>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <UserProvider>
+                <Route exact path="/" component={Home} />
+              </UserProvider>
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
-              <Redirect from="*" to="/" />
             </Switch>
           </Router>
         </SnackbarProvider>

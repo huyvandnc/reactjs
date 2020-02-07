@@ -117,7 +117,6 @@ schema.statics = {
         return new Promise((resolve, reject) => {
             const User = this;
             User.findOne({
-                provider,
                 'social.id': profile.id
             }).exec().then(user => {
                 if (!user) {

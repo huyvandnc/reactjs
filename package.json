@@ -6,7 +6,6 @@
   "author": "HuyVan <huyvan.dnc@gmail.com>",
   "license": "MIT",
   "private": true,
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@hapi/joi": "^17.1.0",
     "@material-ui/core": "^4.9.1",
@@ -24,6 +23,7 @@
     "express-validation": "^1.0.3",
     "helmet": "^3.21.2",
     "history": "^4.10.1",
+    "http-proxy-middleware": "^0.20.0",
     "isomorphic-unfetch": "^3.0.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
@@ -55,12 +55,12 @@
     "yup": "^0.28.1"
   },
   "scripts": {
-    "dev": "concurrently \"react-scripts start\" \"nodemon server/index.js --exec babel-node\"",
-    "start": "concurrently \"react-scripts start\" \"node server/index.js --exec babel-node\"",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "concurrently \"nodemon server/index.js --exec babel-node\"",
-    "stop-win": "Taskkill /IM node.exe /F",
-    "stop-linux": "killall node"
+    "server": "nodemon server/index.js --exec babel-node",
+    "win": "Taskkill /IM node.exe /F",
+    "linux": "killall node",
+    "dev": "run-p server start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -73,6 +73,20 @@
     "eslint": "^6.8.0",
     "eslint-config-equimper": "^2.2.2",
     "morgan": "^1.9.1",
-    "nodemon": "^2.0.2"
+    "node-env-run": "^3.0.2",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
