@@ -7,7 +7,6 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 (async () => {
-    
     await require('./libs/express').index(app);
     await require('./libs/mongoose').connect();
     await require('./auth/services/router.service').default(app);

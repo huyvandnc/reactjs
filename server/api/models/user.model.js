@@ -123,15 +123,14 @@ schema.statics = {
                     user = new User({
                         provider: provider,
                         name: profile.displayName,
-                        username: profile.username,
                         email: profile.email || '',
-                        photo: profile.photo || '',
+                        photo: profile._json.picture || '',
                         'social.id': profile.id,
                         'social.info': profile._json
                     });
                 } else {
                     user.social.info = profile._json;
-                    user.photo = profile.photo || '';
+                    user.photo = profile._json.picture || '';
                 }
                 user.lastLogin = Date.now();
                 user.save().then(_user => resolve(_user)).catch(err => reject(err));

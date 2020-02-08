@@ -16,19 +16,18 @@ export function index(app) {
         app.use(helmet());
         app.use(cors({ origin: true, credentials: true }));
 
+        // passport.serializeUser((user, done) => {
+        //     done(null, user);
+        // });
+        // passport.deserializeUser((user, done) => {
+        //     done(null, user);
+        // });
+
         app.use(passport.initialize());
         app.use(passport.session());
 
         if (config.log)
             app.use(morgan('dev'));
-
-        passport.serializeUser((user, cb) => {
-            cb(null, user);
-        });
-
-        passport.deserializeUser((user, cb) => {
-            cb(null, user);
-        });
 
         resolve();
     })
