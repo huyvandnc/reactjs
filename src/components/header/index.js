@@ -11,9 +11,11 @@ import {
     MenuList,
     MenuItem,
     ClickAwayListener,
-    Divider
+    Divider,
+    Button,
+    Link
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Menu } from '@material-ui/icons';
 import { authActions } from '../../redux/actions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import styles from "./styles";
@@ -46,18 +48,28 @@ const Header = (props) => {
         <AppBar position="fixed" color="default">
             <Toolbar variant="dense">
                 <IconButton size="small" edge="start" color="inherit" aria-label="menu" onClick={() => history.push('/')}>
-                    <MenuIcon />
+                    <Menu />
                 </IconButton>
                 <Divider orientation="vertical" component="span" className={classes.divider} />
                 <Typography variant="h6" weight="small" className={classes.logo}>
                     Cày Kiếm Cơm
                 </Typography>
 
-                <MenuList className={classes.horiz}>
-                    <MenuItem onClick={() => history.push('/shop')}>Shop</MenuItem>
-                    <MenuItem onClick={() => history.push('/share')}>Share</MenuItem>
-                    <MenuItem onClick={() => history.push('/check')}>Tool Check</MenuItem>
-                </MenuList>
+                <Button color="inherit" onClick={() => history.push('/')} size="small">
+                    Home
+                </Button>
+                <Button color="inherit" onClick={() => history.push('/share')} size="small">
+                    Share
+                </Button>
+                <Button color="inherit" onClick={() => history.push('/tool')} size="small">
+                    Tool Check
+                </Button>
+                <Button color="inherit" onClick={() => history.push('/signin')} size="small">
+                    Đăng nhập
+                </Button>
+                <Button color="inherit" onClick={() => history.push('/signup')} size="small">
+                    Đăng ký
+                </Button>
 
                 <div className={classes.grow} />
                 {

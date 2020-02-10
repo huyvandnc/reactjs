@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Router, Route, Switch } from 'react-router-dom'
 import { SnackbarProvider } from 'notistack';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';

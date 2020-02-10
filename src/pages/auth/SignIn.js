@@ -63,32 +63,42 @@ const SignInPage = (props) => {
     <>
       <MainLayout>
         <Header {...props} />
-        <Container component="main" maxWidth="xs">
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlined />
-            </Avatar>
-            <Typography component="h1" variant="h5">Đăng Nhập</Typography>
-            <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
-              <TextField value={email} onChange={e => setEmail(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth label="Email" name="email" id="email" />
-              <TextField value={password} onChange={e => setPasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth label="Mật khẩu" type="password" name="password" id="password" />
-              <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={loading}>
-                {loading ? <CircularProgress size={24} /> : 'Đăng nhập'}
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link variant="body2" onClick={() => { history.push('/forgot'); }}>Quên mật khẩu?</Link>
-                </Grid>
-                <Grid item>
-                  <Link variant="body2" onClick={() => { history.push('/signup'); }}>Chưa có tài khoản? Đăng ký</Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-          <Box mt={8}>
-            <Copyright />
-          </Box>
-        </Container>
+        <Grid container justify="center">
+          <Grid item xs={6}>
+            <Container component="main" maxWidth="xs">
+              <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <LockOutlined />
+                </Avatar>
+                <Typography component="h1" variant="h5">Đăng Nhập</Typography>
+                <Button fullWidth variant="contained" color="primary" href="/api/v1/auth/facebook">
+                  Login with Facebook
+                </Button>
+                <Button fullWidth variant="contained" href="/api/v1/auth/google">
+                  Login with Google
+                </Button>
+                <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
+                  <TextField value={email} onChange={e => setEmail(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth label="Email" name="email" id="email" />
+                  <TextField value={password} onChange={e => setPasword(e.target.value)} size="small" variant="outlined" margin="normal" required fullWidth label="Mật khẩu" type="password" name="password" id="password" />
+                  <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={loading}>
+                    {loading ? <CircularProgress size={24} /> : 'Đăng nhập'}
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link variant="body2" onClick={() => { history.push('/forgot'); }}>Quên mật khẩu?</Link>
+                    </Grid>
+                    <Grid item>
+                      <Link variant="body2" onClick={() => { history.push('/signup'); }}>Chưa có tài khoản? Đăng ký</Link>
+                    </Grid>
+                  </Grid>
+                </form>
+              </div>
+              <Box mt={8}>
+                <Copyright />
+              </Box>
+            </Container>
+          </Grid>
+        </Grid>
       </MainLayout>
     </>
   );
