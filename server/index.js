@@ -8,6 +8,7 @@ const port = process.env.PORT || 5000;
 
 (async () => {
     await require('./libs/express').index(app);
+    await require('./libs/socket.io').index(app);
     await require('./libs/mongoose').connect();
     await require('./auth/services/router.service').default(app);
     app.listen(config.server.port, config.server.ip, (err) => {

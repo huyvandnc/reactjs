@@ -14,6 +14,7 @@ import { history } from './utils';
 import './App.css';
 import { authActions } from './redux/actions'
 import configureStore from './redux/store';
+import io from 'socket.io-client';
 const store = configureStore();
 
 const App = () => {
@@ -28,15 +29,15 @@ const App = () => {
   }
   useComponentWillMount(() => {
     let token = Cookies.get('token');
-    if(token)
-    {
-      console.log(jwt_decode(token));
+    if (token) {
+      //console.log(jwt_decode(token));
+      localStorage.setItem('token', token);
+      Cookies.remove('token');
       //store.dispatch(authActions.signInSuccess(jwt_decode(token)));
     }
-    console.log("Runs only once before component mounts");
+    //console.log("Runs only once before component mounts");
   });
   useComponentDidMount(() => {
-    //console.log('token', Cookies.get('token'));
     //console.log("Runs only once after component mounts");
   });
   return (
@@ -46,9 +47,7 @@ const App = () => {
         <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "right", }}>
           <Router history={history}>
             <Switch>
-              <UserProvider>
-                <Route exact path="/" component={Home} />
-              </UserProvider>
+              <Route exact path="/" component={Home} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
             </Switch>
