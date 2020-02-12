@@ -9,7 +9,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme/default';
 import Home from './pages/home';
 import { SignIn, SignUp } from './pages/auth';
-import UserProvider from "./contexts/UserProvider";
+import Security from './containers/Security';
+import SecurityLayout from './layouts/SecurityLayout';
 import { history } from './utils';
 import './App.css';
 import { authActions } from './redux/actions'
@@ -18,40 +19,27 @@ import io from 'socket.io-client';
 const store = configureStore();
 
 const App = () => {
-  const [state, setState] = React.useState({});
-  const useComponentDidMount = func => React.useEffect(func, []);
-  const useComponentWillMount = func => {
-    const [willMount, setWillMount] = React.useState(true);
-    useComponentDidMount(() => setWillMount(false));
-    if (willMount) {
-      func();
-    }
-  }
-  useComponentWillMount(() => {
+  React.useEffect(() => {
     let token = Cookies.get('token');
     if (token) {
-      //console.log(jwt_decode(token));
       localStorage.setItem('token', token);
       Cookies.remove('token');
-      //store.dispatch(authActions.signInSuccess(jwt_decode(token)));
     }
-    //console.log("Runs only once before component mounts");
-  });
-  useComponentDidMount(() => {
-    //console.log("Runs only once after component mounts");
-  });
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Provider store={store}>
         <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "right", }}>
-          <Router history={history}>
-            <Switch>
-              <Route exact path="/" component={Home} />
+          <SecurityLayout>
+            <Router history={history}>
+              <Security>
+                <Route exact path="/" component={Home} />
+              </Security>
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
-            </Switch>
-          </Router>
+            </Router>
+          </SecurityLayout>
         </SnackbarProvider>
       </Provider>
     </ThemeProvider>

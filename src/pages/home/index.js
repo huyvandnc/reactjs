@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MainLayout from '../../layouts/MainLayout';
 import Header from '../../components/header';
-import UserProvider from '../../contexts/UserProvider';
 import {
   Container
 } from '@material-ui/core';
@@ -19,8 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 const Home = (props) => {
   const classes = useStyles();
-  const userData = React.useContext(UserProvider.context);
-  const userJson = JSON.stringify(userData, null, 4)
+  const userJson = JSON.stringify(props, null, 4)
   return (
     <>
       <MainLayout>

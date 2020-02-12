@@ -7,7 +7,7 @@ import config from '../../config';
 export function mw(requiredRoles) {
     return async (req, res, next) => {
         // Extract Token
-        let token = req.body.token || req.query.token || req.params.token || req.cookies['token'] || req.headers['x-access-token'] || req.headers['authorization'];
+        let token = req.body.token || req.query.token || req.params.token || req.cookies['token'] || req.headers['x-auth-token'] || req.headers['authorization'];
         if (token && token.startsWith('Bearer ')) {
             token = token.slice(7, token.length);
         }
