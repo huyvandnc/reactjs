@@ -12,8 +12,7 @@ export async function initialize(err, user, res) {
             return invalid(res, { message: err });
         }
 
-        if (!user)
-        {
+        if (!user) {
             return error(res, { message: 'Something went wrong, please try again.' });
         }
 

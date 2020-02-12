@@ -3,6 +3,11 @@ import { authConstants } from '../constants';
 import { addNotification } from '../actions'
 
 export const authActions = {
+    signInSuccess: (user) => {
+        return (dispatch) => {
+            dispatch({ type: authConstants.SIGNIN_SUCCESS, payload: user });
+        }
+    },
     signIn: (body) => {
         return (dispatch) => {
             dispatch({ type: authConstants.SIGNIN_REQUEST });
