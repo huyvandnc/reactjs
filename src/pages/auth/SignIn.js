@@ -105,8 +105,7 @@ const SignInPage = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  const { auth } = state;
-  return { auth };
+  return state;
 }
 
 const matchDispatchToProps = {

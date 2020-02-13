@@ -102,9 +102,7 @@ const SignUpPage = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  //console.log('state', state);
-  const { auth } = state;
-  return { auth };
+  return state;
 }
 
 const matchDispatchToProps = {

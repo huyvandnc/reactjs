@@ -13,12 +13,21 @@ import {
     ClickAwayListener,
     Divider,
     Button,
-    Link
+    Avatar
 } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import { authActions } from '../../redux/actions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import styles from "./styles";
+
+const UserAvatar = ({ classes, user }) => {
+    if (user.photo) {
+        return (<Avatar alt={user.name} src={user.photo} className={classes.small} />);
+    }
+    else {
+        return (<Avatar alt={user.name} className={classes.small}>{user.name.charAt(0)}</Avatar>);
+    }
+}
 
 const Header = (props) => {
     const { classes, auth, signOut, history, security } = props;
@@ -55,22 +64,6 @@ const Header = (props) => {
                     Cày Kiếm Cơm
                 </Typography>
 
-                <Button color="inherit" onClick={() => history.push('/')} size="small">
-                    Home
-                </Button>
-                <Button color="inherit" onClick={() => history.push('/share')} size="small">
-                    Share
-                </Button>
-                <Button color="inherit" onClick={() => history.push('/tool')} size="small">
-                    Tool Check
-                </Button>
-                <Button color="inherit" onClick={() => history.push('/signin')} size="small">
-                    Đăng nhập
-                </Button>
-                <Button color="inherit" onClick={() => history.push('/signup')} size="small">
-                    Đăng ký
-                </Button>
-
                 <div className={classes.grow} />
                 {
                     security.loggedIn ?
@@ -80,6 +73,7 @@ const Header = (props) => {
                                     Chào, <Typography component="span" color="primary">{security.user.name}</Typography>!
                                 </MenuItem>
                             </MenuList>
+                            <UserAvatar user={security.user} classes={classes} />
                             <Popper open={profileOpen} anchorEl={profileRef.current} role={undefined} transition disablePortal>
                                 {({ TransitionProps, placement }) => (
                                     <Grow

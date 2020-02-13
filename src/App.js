@@ -1,8 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, Switch } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import jwt_decode from 'jwt-decode'
+import { Router, Route } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import { SnackbarProvider } from 'notistack';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
@@ -13,7 +12,6 @@ import Security from './containers/Security';
 import SecurityLayout from './layouts/SecurityLayout';
 import { history } from './utils';
 import './App.css';
-import { authActions } from './redux/actions'
 import configureStore from './redux/store';
 import io from 'socket.io-client';
 const store = configureStore();

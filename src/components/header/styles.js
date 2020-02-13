@@ -34,6 +34,10 @@ const styles = theme => ({
         '&>li:hover': {
             borderRadius: '4px',
         }
+    },
+    small: {
+        width: theme.spacing(4),
+        height: theme.spacing(4),
     }
 })
 

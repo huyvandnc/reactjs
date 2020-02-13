@@ -1,20 +1,27 @@
-import { SET_AUTHENTICATED_USER, REMOVE_AUTHENTICATED_USER } from '../constants/ActionTypes';
-const initialState = {};
+import _ from 'lodash';
+import { CHANGE_TOKEN } from '../constants/ActionTypes';
+const initialState = {
+    loading: true,
+    loggedIn: false,
+    user: {}
+};
 const security = (state = initialState, action) => {
     switch (action.type) {
-        case SET_AUTHENTICATED_USER:
-            console.log('action.payload', action.payload);
-            return Object.assign(Object.assign({}, state), {
-                loading: false,
-                loggedIn: true,
-                user: action.payload,
-            });
-        case REMOVE_AUTHENTICATED_USER:
-            return Object.assign(Object.assign({}, state), {
-                loading: false,
-                loggedIn: false,
-                user: {}
-            });
+        case CHANGE_TOKEN:
+            if (!_.isEmpty(action.payload)) {
+                return {
+                    ...initialState,
+                    loading: false,
+                    loggedIn: true,
+                    user: action.payload,
+                }
+            }
+            else {
+                return {
+                    ...initialState,
+                    error: action.payload
+                }
+            }
         default:
             return state;
     }

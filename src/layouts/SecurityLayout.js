@@ -18,7 +18,7 @@ const SecurityLayout = ({ ...props }) => {
             .catch(err => {
                 dispatch(removeAuthenticatedUser());
             });
-    }, []);
+    }, [dispatch]);
 
     return props.children;
 }
