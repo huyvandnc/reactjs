@@ -5,59 +5,64 @@ import {
     Toolbar,
     IconButton,
     Typography,
-    Paper,
-    Popper,
-    Grow,
     MenuList,
     MenuItem,
-    ClickAwayListener,
     Divider,
-    Button,
     Avatar
 } from '@material-ui/core';
-import { Menu } from '@material-ui/icons';
+import { Menu as MenuIcon } from '@material-ui/icons';
+import Menu from '@material-ui/core/Menu';
 import { authActions } from '../../redux/actions';
 import withStyles from '@material-ui/core/styles/withStyles';
 import styles from "./styles";
 
-const UserAvatar = ({ classes, user }) => {
-    if (user.photo) {
-        return (<Avatar alt={user.name} src={user.photo} className={classes.small} />);
-    }
-    else {
-        return (<Avatar alt={user.name} className={classes.small}>{user.name.charAt(0)}</Avatar>);
-    }
+const UserAvatar = (props) => {
+    const { classes, signOut, history, security } = props;
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = event => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const _signOut = event => {
+        signOut();
+        history.push('/');
+    };
+
+    return (
+        <div>
+            <IconButton className={classes.avbutton} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                {
+                    security.user.photo ?
+                        <Avatar alt={security.user.name} src={security.user.photo} className={classes.small} />
+                        :
+                        <Avatar alt={security.user.name} className={classes.small}>{security.user.name.charAt(0)}</Avatar>
+                }
+            </IconButton>
+            <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={_signOut}>Logout</MenuItem>
+            </Menu>
+        </div>
+    )
 }
 
 const Header = (props) => {
-    const { classes, auth, signOut, history, security } = props;
-    const [profileOpen, setProfileOpen] = React.useState(false);
-    const profileRef = React.useRef(null);
-    const prevOpen = React.useRef(profileOpen);
-
+    const { classes, history, security } = props;
     React.useEffect(() => {
-        if (prevOpen.current === true && profileOpen === false) {
-            profileRef.current.focus();
-        }
-        prevOpen.current = profileOpen;
-    }, [profileOpen]);
-
-    const handleToggle = () => {
-        setProfileOpen(prevOpen => !prevOpen);
-    };
-
-    const handleClose = event => {
-        if (profileRef.current && profileRef.current.contains(event.target)) {
-            return;
-        }
-        setProfileOpen(false);
-    };
+    }, []);
 
     return (
         <AppBar position="fixed" color="default">
             <Toolbar variant="dense">
                 <IconButton size="small" edge="start" color="inherit" aria-label="menu" onClick={() => history.push('/')}>
-                    <Menu />
+                    <MenuIcon />
                 </IconButton>
                 <Divider orientation="vertical" component="span" className={classes.divider} />
                 <Typography variant="h6" weight="small" className={classes.logo}>
@@ -67,32 +72,7 @@ const Header = (props) => {
                 <div className={classes.grow} />
                 {
                     security.loggedIn ?
-                        <>
-                            <MenuList className={classes.horiz}>
-                                <MenuItem ref={profileRef} aria-controls={profileOpen ? 'profile-menu' : undefined} aria-haspopup="true" onClick={handleToggle}>
-                                    Chào, <Typography component="span" color="primary">{security.user.name}</Typography>!
-                                </MenuItem>
-                            </MenuList>
-                            <UserAvatar user={security.user} classes={classes} />
-                            <Popper open={profileOpen} anchorEl={profileRef.current} role={undefined} transition disablePortal>
-                                {({ TransitionProps, placement }) => (
-                                    <Grow
-                                        {...TransitionProps}
-                                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                                    >
-                                        <Paper>
-                                            <ClickAwayListener onClickAway={handleClose}>
-                                                <MenuList autoFocusItem={profileOpen} id="profile-menu">
-                                                    <MenuItem onClick={() => { }}>Hồ sơ</MenuItem>
-                                                    <MenuItem onClick={() => { }}>Tài khoản</MenuItem>
-                                                    <MenuItem onClick={signOut}>Thoát</MenuItem>
-                                                </MenuList>
-                                            </ClickAwayListener>
-                                        </Paper>
-                                    </Grow>
-                                )}
-                            </Popper>
-                        </>
+                        <UserAvatar {...props} />
                         :
                         <>
                             <MenuList className={classes.horiz}>

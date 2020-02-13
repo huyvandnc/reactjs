@@ -18,13 +18,13 @@ const useStyles = makeStyles(theme => ({
 
 const Home = (props) => {
   const classes = useStyles();
-  const userJson = JSON.stringify(props, null, 4)
+  const userJson = JSON.stringify(props.security, null, 4)
   return (
     <>
       <MainLayout>
         <Header {...props} />
         <Container component="main">
-        <div className={classes.paper}>
+          <div className={classes.paper}>
             <pre>
               {userJson}
             </pre>

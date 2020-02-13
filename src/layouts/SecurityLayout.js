@@ -13,7 +13,14 @@ const SecurityLayout = ({ ...props }) => {
         })
             .then(res => res.json())
             .then(res => {
-                dispatch(setAuthenticatedUser(res));
+                if (res.success == false)
+                {
+                    dispatch(removeAuthenticatedUser());
+                }
+                else
+                {
+                    dispatch(setAuthenticatedUser(res));
+                }
             })
             .catch(err => {
                 dispatch(removeAuthenticatedUser());

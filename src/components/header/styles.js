@@ -39,6 +39,10 @@ const styles = theme => ({
         width: theme.spacing(4),
         height: theme.spacing(4),
     }
+    ,
+    avbutton: {
+        padding: theme.spacing(0.5)
+    }
 })
 
 export default styles
