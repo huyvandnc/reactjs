@@ -21,7 +21,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import styles from "./styles";
 
 const Header = (props) => {
-    const { classes, auth, signOut, history } = props;
+    const { classes, auth, signOut, history, security } = props;
     const [profileOpen, setProfileOpen] = React.useState(false);
     const profileRef = React.useRef(null);
     const prevOpen = React.useRef(profileOpen);
@@ -73,11 +73,11 @@ const Header = (props) => {
 
                 <div className={classes.grow} />
                 {
-                    auth.loggedIn ?
+                    security.loggedIn ?
                         <>
                             <MenuList className={classes.horiz}>
                                 <MenuItem ref={profileRef} aria-controls={profileOpen ? 'profile-menu' : undefined} aria-haspopup="true" onClick={handleToggle}>
-                                    Chào, <Typography component="span" color="primary">{auth.user.name}</Typography>!
+                                    Chào, <Typography component="span" color="primary">{security.user.name}</Typography>!
                                 </MenuItem>
                             </MenuList>
                             <Popper open={profileOpen} anchorEl={profileRef.current} role={undefined} transition disablePortal>
