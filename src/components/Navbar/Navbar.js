@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import Menu from '@material-ui/core/Menu';
+import withStyles from '@material-ui/core/styles/withStyles';
+import styles from "./styles";
 
 const UserAvatar = (props) => {
     const { classes, signOut, history, security } = props;
@@ -49,7 +51,7 @@ const UserAvatar = (props) => {
     )
 }
 
-const Header = (props) => {
+const Navbar = (props) => {
     const { classes, history, security } = props;
     React.useEffect(() => {
     }, []);
@@ -82,4 +84,4 @@ const Header = (props) => {
     );
 }
 
-export default Header;
+export default withStyles(styles)(Navbar);
