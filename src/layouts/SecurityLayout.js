@@ -1,10 +1,9 @@
 import React from "react";
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { removeAuthenticatedUser, setAuthenticatedUser } from '../redux/actions';
 import { getToken } from '../utils/api';
 
-const SecurityLayout = ({ ...props }) => {
-    const dispatch = useDispatch();
+const SecurityLayout = ({ setAuthenticatedUser, removeAuthenticatedUser, children }) => {
     React.useEffect(() => {
         fetch("/api/v1/user/me", {
             headers: {
@@ -13,21 +12,19 @@ const SecurityLayout = ({ ...props }) => {
         })
             .then(res => res.json())
             .then(res => {
-                if (res.success == false)
-                {
-                    dispatch(removeAuthenticatedUser());
+                if (res.success === false) {
+                    removeAuthenticatedUser();
                 }
-                else
-                {
-                    dispatch(setAuthenticatedUser(res));
+                else {
+                    setAuthenticatedUser(res);
                 }
             })
             .catch(err => {
-                dispatch(removeAuthenticatedUser());
+                removeAuthenticatedUser();
             });
-    }, [dispatch]);
+    }, [setAuthenticatedUser, removeAuthenticatedUser]);
 
-    return props.children;
+    return children;
 }
 
 const mapStateToProps = ({ security }) => ({

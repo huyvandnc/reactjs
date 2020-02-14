@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { SnackbarProvider } from 'notistack';
@@ -8,13 +8,10 @@ import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme/default';
 import Home from './pages/home';
 import { SignIn, SignUp } from './pages/auth';
-import Security from './containers/Security';
+import Security from './components/SecurityPlugin';
 import SecurityLayout from './layouts/SecurityLayout';
 import { history } from './utils';
 import './App.css';
-import configureStore from './redux/store';
-import io from 'socket.io-client';
-const store = configureStore();
 
 const App = () => {
   React.useEffect(() => {
@@ -27,21 +24,24 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Provider store={store}>
-        <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "right", }}>
-          <SecurityLayout>
-            <Router history={history}>
-              <Security>
-                <Route exact path="/" component={Home} />
-              </Security>
-              <Route path="/signin" component={SignIn} />
-              <Route path="/signup" component={SignUp} />
-            </Router>
-          </SecurityLayout>
-        </SnackbarProvider>
-      </Provider>
+      <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "right", }}>
+        <SecurityLayout>
+          <Router history={history}>
+            <Security>
+              <Route exact path="/" component={Home} />
+            </Security>
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+          </Router>
+        </SecurityLayout>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }
 
-export default App;
+const mapStoreToProps = state => {
+  return state;
+}
+const mapDispatchToProps = {
+}
+export default connect(mapStoreToProps, mapDispatchToProps)(App);

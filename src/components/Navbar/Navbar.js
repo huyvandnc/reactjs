@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {
     AppBar,
     Toolbar,
@@ -12,9 +11,6 @@ import {
 } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import Menu from '@material-ui/core/Menu';
-import { authActions } from '../../redux/actions';
-import withStyles from '@material-ui/core/styles/withStyles';
-import styles from "./styles";
 
 const UserAvatar = (props) => {
     const { classes, signOut, history, security } = props;
@@ -86,13 +82,4 @@ const Header = (props) => {
     );
 }
 
-const mapStateToProps = (state) => {
-    const { auth } = state;
-    return { auth };
-}
-
-const matchDispatchToProps = {
-    signOut: authActions.signOut
-}
-
-export default withStyles(styles)(connect(mapStateToProps, matchDispatchToProps)(Header))
+export default Header;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MainLayout from '../../layouts/MainLayout';
-import Header from '../../components/header';
+import Header from '../../components/Navbar/Navbar';
 import {
   Container
 } from '@material-ui/core';

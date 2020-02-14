@@ -7,6 +7,13 @@ const rootReducer = combineReducers({
     auth,
     security,
     notifications,
+    // header: headerReducer,
+    // login: loginReducer,
+    // footer: footerReducer,
+    // common: commonReducer,
+    // product: productReducer,
+    // catalog: catalogReducer,
+    // payment: paymentReducer
 });
 
 export default rootReducer;

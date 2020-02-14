@@ -1,5 +1,5 @@
 import React from "react";
-import Notifier from '../containers/Notifier';
+import Notifier from '../components/NotificationPlugin';
 
 const MainLayout = ({ children }) => {
     return <>

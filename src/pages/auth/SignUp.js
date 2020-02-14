@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { authActions } from '../../redux/actions';
 import MainLayout from '../../layouts/MainLayout';
-import Header from '../../components/header';
+import Header from '../../components/Navbar/Navbar';
 
 const Copyright = () => {
   return (

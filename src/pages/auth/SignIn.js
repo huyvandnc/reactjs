@@ -15,7 +15,7 @@ import {
 import { LockOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import MainLayout from '../../layouts/MainLayout';
-import Header from '../../components/header';
+import Header from '../../components/Navbar/Navbar';
 
 const Copyright = () => {
   return (
