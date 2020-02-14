@@ -9,6 +9,9 @@ const theme = createMuiTheme({
             'Helvetica',
             'sans-serif',
         ].join(','),
+        button: {
+            textTransform: 'none'
+        }
     },
     palette: {
         background: {

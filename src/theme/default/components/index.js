@@ -1,11 +1,13 @@
 import MuiAppBar from './MuiAppBar'
-import MuiToolbar from './MuiToolbar'
-import MuiPaper from './MuiPaper'
+import MuiButton from './MuiButton'
 import MuiListItem from './MuiListItem'
+import MuiPaper from './MuiPaper'
+import MuiToolbar from './MuiToolbar'
 
 export default {
     MuiAppBar,
-    MuiToolbar,
+    MuiButton,
+    MuiListItem,
     MuiPaper,
-    MuiListItem
+    MuiToolbar,
 }

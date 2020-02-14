@@ -1,13 +1,12 @@
 const styles = theme => ({
     logo: {
-        marginLeft: theme.spacing(0.5),
-        marginRight: theme.spacing(1),
-        fontWeight: 500,
-        fontSize: 15,
-        whiteSpace: "nowrap",
-        [theme.breakpoints.down("xs")]: {
-            display: "none",
-        },
+        '&>img': {
+            height: '30px',
+            cursor: 'pointer',
+            display: 'inherit',
+            alignItems: 'inherit',
+            justifyContent: 'inherit'
+        }
     },
     grow: {
         flexGrow: 1
@@ -20,28 +19,18 @@ const styles = theme => ({
             display: "none",
         },
     },
-    buttons: {
+    profileMenu: {
         '&>*': {
-            marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(1),
-        }
-    },
-    horiz: {
-        '&>li': {
-            fontSize: '15px',
-            display: 'inline-block'
+            marginLeft: theme.spacing(0.25),
+            marginRight: theme.spacing(0.25),
         },
-        '&>li:hover': {
-            borderRadius: '4px',
+        '&>button .MuiButton-endIcon': {
+            marginLeft: theme.spacing(0)
+        },
+        '&>button .MuiAvatar-root': {
+            width: theme.spacing(3),
+            height: theme.spacing(3),
         }
-    },
-    small: {
-        width: theme.spacing(4),
-        height: theme.spacing(4),
-    }
-    ,
-    avbutton: {
-        padding: theme.spacing(0.5)
     }
 })
 

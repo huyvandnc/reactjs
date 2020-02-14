@@ -3,8 +3,8 @@ const MuiToolbar = (theme) => {
         MuiToolbar: {
             gutters: {
                 [theme.breakpoints.down('xl')]: {
-                    paddingLeft: '15px',
-                    paddingRight: '15px',
+                    paddingLeft: theme.spacing(1),
+                    paddingRight: theme.spacing(1),
                 },
             },
         }

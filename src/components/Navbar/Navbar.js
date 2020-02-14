@@ -1,51 +1,50 @@
-import React from 'react';
+import React from 'react'
 import {
     AppBar,
     Toolbar,
-    IconButton,
-    Typography,
-    MenuList,
     MenuItem,
     Divider,
-    Avatar
-} from '@material-ui/core';
-import { Menu as MenuIcon } from '@material-ui/icons';
-import Menu from '@material-ui/core/Menu';
-import withStyles from '@material-ui/core/styles/withStyles';
-import styles from "./styles";
+    Avatar,
+    Button
+} from '@material-ui/core'
+import {
+    ShoppingCartOutlined,
+    NotificationsNone,
+    ExpandMore,
+} from '@material-ui/icons'
+import Menu from '@material-ui/core/Menu'
+import withStyles from '@material-ui/core/styles/withStyles'
+import styles from "./styles"
+import logo from "../../logo.svg"
 
 const UserAvatar = (props) => {
     const { classes, signOut, history, security } = props;
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = React.useState(null)
+    const open = Boolean(anchorEl)
 
     const handleClick = event => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
     };
-
-    const _signOut = event => {
-        signOut();
-        history.push('/');
-    };
-
     return (
-        <div>
-            <IconButton className={classes.avbutton} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+        <div className={classes.profileMenu}>
+            <Button onClick={() => history.push('/')}><ShoppingCartOutlined /></Button>
+            <Button onClick={() => history.push('/')}><NotificationsNone /></Button>
+            <Button endIcon={<ExpandMore fontSize="small" />} aria-owns={anchorEl ? "profileMenu" : null} aria-haspopup="true" onClick={handleClick}>
                 {
                     security.user.photo ?
-                        <Avatar alt={security.user.name} src={security.user.photo} className={classes.small} />
+                        <Avatar alt={security.user.name} src={security.user.photo} />
                         :
-                        <Avatar alt={security.user.name} className={classes.small}>{security.user.name.charAt(0)}</Avatar>
+                        <Avatar alt={security.user.name}>{security.user.name.charAt(0)}</Avatar>
                 }
-            </IconButton>
-            <Menu id="simple-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+            </Button>
+            <Menu id="profileMenu" anchorOrigin={{ vertical: "bottom", horizontal: "left" }} getContentAnchorEl={null} anchorEl={anchorEl} open={open} onClose={handleClose} elevation={4}>
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={_signOut}>Logout</MenuItem>
+                <MenuItem onClick={() => { signOut(); history.push('/') }}>Logout</MenuItem>
             </Menu>
         </div>
     )
@@ -57,26 +56,20 @@ const Navbar = (props) => {
     }, []);
 
     return (
-        <AppBar position="fixed" color="default">
+        <AppBar position="fixed" color="default" elevation={4}>
             <Toolbar variant="dense">
-                <IconButton size="small" edge="start" color="inherit" aria-label="menu" onClick={() => history.push('/')}>
-                    <MenuIcon />
-                </IconButton>
-                <Divider orientation="vertical" component="span" className={classes.divider} />
-                <Typography variant="h6" weight="small" className={classes.logo}>
-                    Cày Kiếm Cơm
-                </Typography>
-
+                <div className={classes.logo}>
+                    <img src={logo} onClick={() => history.push('/')} alt="Cày Kiếm Cơm" />
+                </div>
                 <div className={classes.grow} />
                 {
                     security.loggedIn ?
                         <UserAvatar {...props} />
                         :
                         <>
-                            <MenuList className={classes.horiz}>
-                                <MenuItem onClick={() => history.push('/signin')}>Đăng nhập</MenuItem>
-                                <MenuItem onClick={() => history.push('/signup')}>Đăng ký</MenuItem>
-                            </MenuList>
+                            <Button onClick={() => history.push('/signin')}>Đăng nhập</Button>
+                            <Divider orientation="vertical" component="span" className={classes.divider} />
+                            <Button onClick={() => history.push('/signup')}>Đăng ký</Button>
                         </>
                 }
             </Toolbar>
@@ -84,4 +77,4 @@ const Navbar = (props) => {
     );
 }
 
-export default withStyles(styles)(Navbar);
+export default withStyles(styles)(Navbar)
