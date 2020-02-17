@@ -6,8 +6,10 @@ const mapStateToProps = (state) => {
     return state;
 }
 
-const matchDispatchToProps = (dispatch) => {
-    signOut: () => dispatch(authActions.signOut)
+const matchDispatchToProps = () => {
+    return {
+        signOut: () => { authActions.signOut() }
+    }
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Navbar);

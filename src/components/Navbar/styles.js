@@ -1,7 +1,7 @@
 const styles = theme => ({
     logo: {
         '&>img': {
-            height: '30px',
+            height: '24px',
             cursor: 'pointer',
             display: 'inherit',
             alignItems: 'inherit',
