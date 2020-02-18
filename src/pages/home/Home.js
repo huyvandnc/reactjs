@@ -1,24 +1,31 @@
 import React from 'react';
-import MainLayout from '../../layouts/MainLayout';
-import Header from '../../components/Navbar';
 import {
   Container
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import styles from "./styles"
+import { makeStyles } from '@material-ui/core/styles';
+import MainLayout from '../../layouts/MainLayout';
+import Header from '../../components/Navbar';
+import ProductList from '../../components/ProductList';
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  }
+}))
 
 const Home = (props) => {
-  const { classes } = props;
-  const userJson = JSON.stringify(props.security, null, 4)
+  const classes = useStyles();
+  //const user = JSON.stringify(props.security, null, 4)
   return (
     <>
       <MainLayout>
         <Header {...props} />
         <div className={classes.paper}>
           <Container component="main">
-            <pre>
-              {userJson}
-            </pre>
+            <ProductList />
           </Container>
         </div>
       </MainLayout>
@@ -26,4 +33,4 @@ const Home = (props) => {
   );
 }
 
-export default withStyles(styles)(Home)
+export default Home

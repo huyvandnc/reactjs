@@ -31,7 +31,14 @@ const styles = theme => ({
             width: theme.spacing(3),
             height: theme.spacing(3),
         }
-    }
+    },
+    Skeleton: {
+        '&>*': {
+            display: 'inline-block',
+            marginLeft: theme.spacing(0.25),
+            marginRight: theme.spacing(0.25),
+        }
+    }    
 })
 
 export default styles
