@@ -13,12 +13,13 @@ const security = (state = initialState, action) => {
                     ...initialState,
                     loading: false,
                     loggedIn: true,
-                    user: action.payload,
+                    user: action.payload
                 }
             }
             else {
                 return {
                     ...initialState,
+                    loading: false,
                     error: action.payload
                 }
             }
